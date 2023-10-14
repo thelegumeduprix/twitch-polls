@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitch Poll Overlay</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://github.com/tmijs/tmi.js/releases/download/v1.8.5/tmi.min.js"></script>
+    <script src="/src/main.js" type="module"></script>
+    <script type="module">
+      import { setup } from "/src/main.js";
+      document.addEventListener("DOMContentLoaded", setup);
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="poll"></div>
+    </div>
+  </body>
+</html>
