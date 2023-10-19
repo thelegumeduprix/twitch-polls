@@ -230,6 +230,9 @@ export function setup() {
     pollState = { ...DEBUG_POLL_STATE };
     renderInitial(pollState);
     renderUpdate(pollState);
+    window.chat = (message, username = "testuser", mod = true) => {
+      return pollState = handleMessage({ mod, username }, message, pollState)
+    }
   } else {
     pollState = { ...INITIAL_POLL_STATE };
   }
