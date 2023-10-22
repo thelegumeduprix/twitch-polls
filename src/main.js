@@ -1,3 +1,5 @@
+import { render } from 'solid-js/web';
+import PollComponent from "./render.jsx"
 import {
   handlePollEnd,
   handlePollResume,
@@ -21,14 +23,7 @@ import {
   isPrivilegedUser,
   isValidVote,
 } from "./messageCheckers.js";
-
-const INITIAL_POLL_STATE = {
-  active: false,
-  visible: false,
-  title: "Poll",
-  options: {},
-  userVotes: {},
-};
+import { updatePollStore, initialState } from './poll-store.js';
 
 const DEBUG_POLL_STATE = {
   active: true,
@@ -217,7 +212,7 @@ export function setup() {
 
   const DEBUG = queryParameters.has("debug");
 
-  document.querySelector(".container").classList.add(positionClassName);
+  document.querySelectorAll(".container").forEach(c => c.classList.add(positionClassName));
 
   const CHANNEL_NAME = queryParameters.get("channel");
   const client = tmi.Client({
@@ -227,17 +222,20 @@ export function setup() {
   let pollState;
 
   if (DEBUG) {
-    pollState = { ...DEBUG_POLL_STATE };
+    pollState = DEBUG_POLL_STATE;
+    updatePollStore(structuredClone(DEBUG_POLL_STATE));
     renderInitial(pollState);
     renderUpdate(pollState);
     window.chat = (message, username = "testuser", mod = true) => {
       return pollState = handleMessage({ mod, username }, message, pollState)
     }
   } else {
-    pollState = { ...INITIAL_POLL_STATE };
+    pollState = initialState();
   }
 
-  client.connect();
+  render(PollComponent, document.getElementById('solidroot'))
+
+  //client.connect();
 
   client.on(
     "message",

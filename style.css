@@ -24,6 +24,7 @@ html {
 body {
   height: 100vh;
   font-size: var(--size-l);
+  display: flex; /* FIXME: just a hack to see both polls side-by-side */
 }
 
 .container {
@@ -54,7 +55,7 @@ body {
   min-width: 25%;
   max-width: 600px;
   padding: var(--size-xl);
-  visibility: hidden;
+  /*visibility: hidden;*/
   border-radius: var(--size-xxl);
   background-color: rgba(0, 0, 0, 0.99);
 }

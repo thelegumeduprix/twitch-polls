@@ -6,6 +6,7 @@ import {
   POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN,
   POLL_VOTE_EXTRACTION_PATTERN,
 } from "./messageCheckers.js";
+import { initialState, updatePollStore } from "./poll-store.js"
 
 export function handlePollStart(message, pollState) {
   if (isPollStart(message) && !pollState.visible && !pollState.active) {
@@ -42,6 +43,8 @@ export function handlePollStart(message, pollState) {
       });
     }
 
+    updatePollStore(structuredClone(newPollState));
+
     return newPollState;
   }
 
@@ -51,24 +54,22 @@ export function handlePollStart(message, pollState) {
 export function handlePollStop(pollState) {
   const newPollState = { ...pollState };
   newPollState.active = false;
+  updatePollStore("active", false);
   return newPollState;
 }
 
 export function handlePollResume(pollState) {
   const newPollState = { ...pollState };
-  newPollState.active = true;
+  if (pollState.visible) {
+    newPollState.active = true;
+    updatePollStore("active", true);
+  }
   return newPollState;
 }
 
 export function handlePollEnd(pollState) {
-  const newPollState = {
-    active: false,
-    visible: false,
-    title: "Poll",
-    options: {},
-    userVotes: {},
-  };
-  return newPollState;
+  updatePollStore(initialState());
+  return initialState();
 }
 
 export function handlePollTitleChange(message, pollState) {
@@ -77,16 +78,22 @@ export function handlePollTitleChange(message, pollState) {
 
   const title = options.shift().replaceAll('"', "");
   newPollState.title = title;
+  updatePollStore("title", title);
   return newPollState;
 }
 
 export function handlePollVote(message, username, pollState) {
-  const newPollState = { ...pollState };
-
   const voteNumber = message.match(POLL_VOTE_EXTRACTION_PATTERN)?.[1];
-  if (voteNumber && (newPollState.options[voteNumber] || voteNumber === "0")) {
-    newPollState.userVotes[username] = voteNumber;
+  if (voteNumber && (pollState.options[voteNumber] || voteNumber === "0")) {
+    const newPollState = {
+      ...pollState,
+      userVotes: {
+        ...pollState.userVotes,
+        [username]: voteNumber
+      }
+    };
+    updatePollStore("userVotes", username, voteNumber);
+    return newPollState;
   }
-
-  return newPollState;
+  return pollState
 }
