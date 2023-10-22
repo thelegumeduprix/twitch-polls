@@ -4,7 +4,7 @@ import {
   getVoteCountsPerOption,
   getTotalVoteCount,
 } from "../src/stateComputations.js";
-import { expect } from "chai";
+import { expect } from "vitest";
 
 let pollState;
 

@@ -15,7 +15,8 @@ import {
   isValidVote,
   POLL_VOTE_EXTRACTION_PATTERN,
 } from "../src/messageCheckers.js";
-import chai, { expect } from "chai";
+import { expect } from "vitest";
+import chai from "chai";
 import chaiMatch from "chai-match";
 
 chai.use(chaiMatch);

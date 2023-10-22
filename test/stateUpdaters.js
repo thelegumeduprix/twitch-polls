@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { expect } from "vitest";
 import {
   handlePollEnd,
   handlePollResume,
@@ -7,20 +7,26 @@ import {
   handlePollTitleChange,
   handlePollVote,
 } from "../src/stateUpdaters.js";
+import { pollStore, updatePollStore } from "../src/poll-store.js";
 
 let pollState;
 
+function setupPollBeforeEach(stateProducer) {
+  beforeEach(() => {
+    pollState = stateProducer();
+    updatePollStore(stateProducer())
+  })
+}
+
 describe("handlePollStart()", function () {
   describe("when no current poll is active or visible", function () {
-    beforeEach(function () {
-      pollState = {
-        active: false,
-        visible: false,
-        title: "Poll",
-        options: {},
-        userVotes: {},
-      };
-    });
+    setupPollBeforeEach(() => ({
+      active: false,
+      visible: false,
+      title: "Poll",
+      options: {},
+      userVotes: {},
+    }));
 
     it('keeps the default title "Poll"', function () {
       expect(pollState.title).to.equal("Poll");
@@ -200,19 +206,18 @@ describe("handlePollStart()", function () {
 });
 
 describe("handlePollStop()", function () {
-  beforeEach(function () {
-    pollState = {
-      active: true,
-      visible: true,
-      title: "Poll",
-      options: { 1: " ", 2: " " },
-      userVotes: {},
-    };
-  });
+  setupPollBeforeEach(() => ({
+    active: true,
+    visible: true,
+    title: "Poll",
+    options: { 1: " ", 2: " " },
+    userVotes: {},
+  }));
 
   it("sets the poll to inactive", function () {
     const newState = handlePollStop(pollState);
-    expect(newState).to.eql({
+    //FIXME
+    expect(pollStore).to.eql({
       active: false,
       visible: true,
       title: "Poll",
@@ -223,15 +228,13 @@ describe("handlePollStop()", function () {
 });
 
 describe("handlePollResume()", function () {
-  beforeEach(function () {
-    pollState = {
-      active: false,
-      visible: true,
-      title: "Poll",
-      options: { 1: " ", 2: " " },
-      userVotes: {},
-    };
-  });
+  setupPollBeforeEach(() => ({
+    active: false,
+    visible: true,
+    title: "Poll",
+    options: { 1: " ", 2: " " },
+    userVotes: {},
+  }));
 
   it("sets the poll state to active", function () {
     const newState = handlePollResume(pollState);
@@ -247,15 +250,13 @@ describe("handlePollResume()", function () {
 
 describe("handlePollEnd()", function () {
   describe("when the poll is active and visible", function () {
-    beforeEach(function () {
-      pollState = {
-        active: true,
-        visible: true,
-        title: "Special Title",
-        options: { 1: " ", 2: " " },
-        userVotes: { user1: "1", user2: "2" },
-      };
-    });
+    setupPollBeforeEach(() => ({
+      active: true,
+      visible: true,
+      title: "Special Title",
+      options: { 1: " ", 2: " " },
+      userVotes: { user1: "1", user2: "2" },
+    }));
 
     it("resets the poll state to the initial state", function () {
       const newState = handlePollEnd(pollState);
@@ -270,15 +271,13 @@ describe("handlePollEnd()", function () {
   });
 
   describe("when the poll visible but inactive", function () {
-    beforeEach(function () {
-      pollState = {
-        active: false,
-        visible: true,
-        title: "Special Title",
-        options: { 1: " ", 2: " " },
-        userVotes: { user1: "1", user2: "2" },
-      };
-    });
+    setupPollBeforeEach(() => ({
+      active: false,
+      visible: true,
+      title: "Special Title",
+      options: { 1: " ", 2: " " },
+      userVotes: { user1: "1", user2: "2" },
+    }));
 
     it("resets the poll state to the initial state", function () {
       const newState = handlePollEnd(pollState);
@@ -293,15 +292,13 @@ describe("handlePollEnd()", function () {
   });
 
   describe("when the poll is not visible and not active", function () {
-    beforeEach(function () {
-      pollState = {
-        active: false,
-        visible: false,
-        title: "Special Title",
-        options: { 1: " ", 2: " " },
-        userVotes: { user1: "1", user2: "2" },
-      };
-    });
+    setupPollBeforeEach(() => ({
+      active: false,
+      visible: false,
+      title: "Special Title",
+      options: { 1: " ", 2: " " },
+      userVotes: { user1: "1", user2: "2" },
+    }));
 
     it("resets the poll state to the initial state", function () {
       const newState = handlePollEnd(pollState);
@@ -317,15 +314,13 @@ describe("handlePollEnd()", function () {
 });
 
 describe("handlePollTitleChange()", function () {
-  beforeEach(function () {
-    pollState = {
-      active: false,
-      visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "2" },
-    };
-  });
+  setupPollBeforeEach(() => ({
+    active: false,
+    visible: true,
+    title: "Some Title",
+    options: { 1: " ", 2: " " },
+    userVotes: { user1: "1", user2: "2" },
+  }));
 
   it("sets the poll title to the new title and keeps everything else as-is", function () {
     const newState = handlePollTitleChange(
@@ -343,15 +338,13 @@ describe("handlePollTitleChange()", function () {
 });
 
 describe("handlePollVote()", function () {
-  beforeEach(function () {
-    pollState = {
-      active: false,
-      visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "2" },
-    };
-  });
+  setupPollBeforeEach(() => ({
+    active: false,
+    visible: true,
+    title: "Some Title",
+    options: { 1: " ", 2: " " },
+    userVotes: { user1: "1", user2: "2" },
+  }));
 
   it("overrides a user's previous vote to a new vote", function () {
     const newState = handlePollVote("2", "user1", pollState);

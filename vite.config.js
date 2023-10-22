@@ -14,4 +14,8 @@ export default defineConfig({
       port: 3001,
     },
   },
+  test: {
+    include: "./test/*",
+    //environment: 'jsdom',
+  }
 });

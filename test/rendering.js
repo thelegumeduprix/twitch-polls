@@ -1,4 +1,5 @@
-import chai, { expect } from "chai";
+import chai from "chai";
+import { expect } from "vitest";
 import chaiDom from "chai-dom";
 import globalJsdom from "global-jsdom";
 import { handleMessage } from "../src/main.js";
@@ -42,7 +43,7 @@ describe("rendering", function () {
   let body;
 
   describe("when receiving a simple poll start command", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
       handleMessage(USER_1, "!poll", { ...INITIAL_POLL_STATE });
@@ -72,7 +73,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving a simple poll start command when a poll is already visible", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
 
@@ -99,7 +100,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving a poll start command with the number 3", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
       handleMessage(USER_1, "!poll 3", { ...INITIAL_POLL_STATE });
@@ -134,7 +135,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving a poll start command with string options", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
       handleMessage(USER_1, '!poll "Title" "answer 1" "answer 2" "answer 3"', {
@@ -174,7 +175,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving a poll start command with string options but with empty title", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
       handleMessage(USER_1, '!poll "" "answer 1" "answer 2" "answer 3"', {
@@ -214,7 +215,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving a title change command while a poll is active", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
       let newState = handleMessage(USER_1, "!poll", { ...INITIAL_POLL_STATE });
@@ -230,7 +231,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving votes while a poll is active", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
 
@@ -256,7 +257,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving votes before and after a poll is active", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
 
@@ -283,7 +284,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving annuled votes and vote changes", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
 
@@ -314,7 +315,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving a poll stop command while an unused poll of 3 was active", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
       let newState = handleMessage(USER_1, "!poll 3", {
@@ -335,7 +336,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving a poll stop command while a drawed poll of 3 was active", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
 
@@ -360,7 +361,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving a poll stop command while a decided poll of 3 was active", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
 
@@ -391,7 +392,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving a poll resume command while a poll was inactive", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
 
@@ -422,7 +423,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving a poll end command while a poll was inactive", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
 
@@ -439,7 +440,7 @@ describe("rendering", function () {
   });
 
   describe("when receiving a poll-altering command while no poll is visible", function () {
-    before(function () {
+    beforeAll(function () {
       globalJsdom(html);
       body = within(document.body, queries);
 
