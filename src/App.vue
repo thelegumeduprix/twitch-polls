@@ -1,83 +1,37 @@
+<template>
+  <div
+    class="container"
+    :class="positionClassName"
+  >
+    <div
+      class="poll"
+      v-show="pollState.visible"
+    >
+      <h1
+        id="poll-title"
+        class="poll-title"
+      >
+        {{ pollState.title }}
+      </h1>
+
+      <PollOption
+        v-for="[optionNumber, optionName] in Object.entries(pollState.options)"
+        :optionNumber="optionNumber"
+        :optionName="optionName"
+        :voteCount="voteCountsPerOption[optionNumber]"
+        :totalCount="totalVoteCount"
+        :winningOptions="winningOptions"
+        :key="optionNumber"
+      />
+    </div>
+  </div>
+</template>
+
 <script>
 import PollOption from './PollOption.vue'
 import { getTotalVoteCount, getVoteCountsPerOption, getWinningOptions } from './computations'
-import {
-  isPollEnd,
-  isPollReset,
-  isPollResume,
-  isPollStart,
-  isPollStop,
-  isPollTitleChange,
-  isPositionChange,
-  isPrivilegedUser,
-  isValidVote
-} from './messageCheckers'
+import { POSITION_MAP } from './setup'
 import store from './store'
-
-import tmi from 'tmi.js'
-
-const POSITION_MAP = {
-  tl: 'top-left',
-  tr: 'top-right',
-  br: 'bottom-right',
-  bl: 'bottom-left'
-}
-
-function handleMessage(tags, message) {
-  if (isPollStart(message) && isPrivilegedUser(tags)) {
-    store.startPoll(message)
-  }
-
-  if (isPollStop(message) && isPrivilegedUser(tags)) {
-    store.stopPoll()
-  }
-
-  if (isPollResume(message) && isPrivilegedUser(tags)) {
-    store.resumePoll()
-  }
-
-  if (isPollEnd(message) && isPrivilegedUser(tags)) {
-    store.endPoll()
-  }
-
-  if (isPollTitleChange(message) && isPrivilegedUser(tags)) {
-    store.updatePollTitle(message)
-  }
-
-  if (isPositionChange(message) && isPrivilegedUser(tags)) {
-    store.updatePosition(message)
-  }
-
-  if (isPollReset(message) && isPrivilegedUser(tags)) {
-    store.resetPoll()
-  }
-
-  // anyone enters a poll vote while a poll is active
-  if (isValidVote(message)) {
-    store.castVote()
-  }
-}
-
-const queryParameters = new URLSearchParams(window.location.search)
-
-const POSITION_CODE = queryParameters.get('position')
-const DEBUG = queryParameters.has('debug')
-const CHANNEL_NAME = queryParameters.get('channel')
-
-if (POSITION_CODE && POSITION_MAP[POSITION_CODE]) {
-  store.updatePosition(POSITION_CODE)
-}
-if (DEBUG) {
-  store.setDebugMode(true)
-}
-
-const client = tmi.Client({
-  channels: [CHANNEL_NAME]
-})
-
-client.connect()
-
-client.on('message', (_, tags, message) => handleMessage(tags, message))
 
 export default {
   components: {
@@ -102,34 +56,6 @@ export default {
   }
 }
 </script>
-
-<template>
-  <div
-    class="container"
-    :class="positionClassName"
-  >
-    <div
-      class="poll"
-      v-show="pollState.visible"
-    >
-      <h1
-        id="poll-title"
-        class="poll-title"
-      >
-        {{ pollState.title }}
-      </h1>
-      <PollOption
-        v-for="[optionNumber, optionName] in Object.entries(pollState.options)"
-        :optionNumber="optionNumber"
-        :optionName="optionName"
-        :voteCount="voteCountsPerOption[optionNumber]"
-        :totalCount="totalVoteCount"
-        :winningOptions="winningOptions"
-        :key="optionNumber"
-      />
-    </div>
-  </div>
-</template>
 
 <style>
 /* Reusable CSS variables */

@@ -27,13 +27,7 @@ const INITIAL_STATE = {
 }
 
 export default reactive({
-  active: false,
-  visible: true,
-  title: 'Debug Mode Poll',
-  options: { 1: 'Pizza', 2: 'Jam', 3: 'Coffee' },
-  userVotes: { user1: '1', user2: '3', user3: '3' },
-  debugMode: false,
-  position: 'tl',
+  ...INITIAL_STATE,
   stopPoll() {
     this.active = false
   },
