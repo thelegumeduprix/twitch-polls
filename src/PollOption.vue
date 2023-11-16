@@ -39,9 +39,9 @@ export default {
     optionClasses() {
       if (this.winningOptions.includes(this.optionNumber)) {
         if (this.winningOptions.length === 1) {
-          return 'option winning-option animate__animated animate__bounceIn'
+          return 'winning-option animate__animated animate__bounceIn'
         } else {
-          return 'option draw-option animate__animated animate__shakeX'
+          return 'draw-option animate__animated animate__shakeX'
         }
       }
 
