@@ -2,7 +2,6 @@
   <div
     class="option"
     :class="optionClasses"
-    :id="'option-' + optionNumber"
     :key="optionNumber"
   >
     <div>
@@ -10,13 +9,9 @@
       <span :contentEditable="true">{{ optionName }}</span
       >: <span class="percentage">{{ percentage }}% ({{ voteCount }})</span>
     </div>
-    <div
-      class="progress-bar-container"
-      :id="'progress-bar-container-' + optionNumber"
-    >
+    <div class="progress-bar-container">
       <div
         class="progress-bar"
-        :id="'progress-bar-' + optionNumber"
         :style="{ width: `${percentage}%` }"
       ></div>
     </div>
