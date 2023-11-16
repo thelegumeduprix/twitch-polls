@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     percentage() {
-      return Math.round((this.voteCount / this.totalCount) * 100)
+      return this.totalCount === 0 ? 0 : Math.round((this.voteCount / this.totalCount) * 100)
     },
     optionClasses() {
       if (this.winningOptions.includes(this.optionNumber)) {
