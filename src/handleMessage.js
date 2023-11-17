@@ -43,6 +43,6 @@ export function handleMessage(tags, message) {
 
   // anyone enters a poll vote while a poll is active
   if (isValidVote(message)) {
-    store.castVote(message)
+    store.castVote(message, tags.username)
   }
 }
