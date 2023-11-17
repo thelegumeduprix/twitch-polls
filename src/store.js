@@ -35,7 +35,11 @@ export default reactive({
     this.active = true
   },
   endPoll() {
-    Object.assign(this, INITIAL_STATE)
+    this.active = false
+    this.visible = false
+    this.title = 'Poll'
+    this.options = {}
+    this.userVotes = {}
   },
   resetPoll() {
     this.active = true
@@ -68,6 +72,12 @@ export default reactive({
     // don't do anything if the a poll is still running
     if (this.visible || this.active) return
 
+    this.options = {}
+    this.userVotes = {}
+    this.active = true
+    this.visible = true
+    this.title = 'Poll'
+
     if (POLL_SIMPLE_DETECTION_PATTERN.test(message)) {
       for (let index = 1; index <= 2; index++) {
         this.options[index] = ' '
@@ -84,7 +94,7 @@ export default reactive({
       const options = [...message.matchAll(POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN)].map((match) => match[1])
 
       const title = options.shift()
-      this.title = title || 'Poll'
+      this.title = title
 
       options.forEach((option, index) => {
         this.options[index + 1] = option
