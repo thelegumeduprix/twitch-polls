@@ -1,7 +1,7 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import { setup } from './setup'
+import { createApp } from 'vue';
+import App from './App.vue';
+import { setup } from './setup';
 
-setup()
+setup();
 
-createApp(App).mount('#app')
+createApp(App).mount('#app');

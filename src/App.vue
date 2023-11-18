@@ -28,33 +28,33 @@
 </template>
 
 <script>
-import PollOption from './PollOption.vue'
-import { getTotalVoteCount, getVoteCountsPerOption, getWinningOptions } from './computations'
-import { POSITION_MAP } from './setup'
-import store from './store'
+import PollOption from './PollOption.vue';
+import { getTotalVoteCount, getVoteCountsPerOption, getWinningOptions } from './computations';
+import { POSITION_MAP } from './setup';
+import store from './store';
 
 export default {
   components: {
-    PollOption
+    PollOption,
   },
   computed: {
     pollState() {
-      return store
+      return store;
     },
     totalVoteCount() {
-      return getTotalVoteCount(store)
+      return getTotalVoteCount(store);
     },
     voteCountsPerOption() {
-      return getVoteCountsPerOption(store)
+      return getVoteCountsPerOption(store);
     },
     winningOptions() {
-      return store.active ? [] : getWinningOptions(store)
+      return store.active ? [] : getWinningOptions(store);
     },
     positionClassName() {
-      return POSITION_MAP[store.position]
-    }
-  }
-}
+      return POSITION_MAP[store.position];
+    },
+  },
+};
 </script>
 
 <style>

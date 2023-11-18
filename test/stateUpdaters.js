@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import { expect } from 'chai';
 import {
   handlePollEnd,
   handlePollResume,
@@ -6,26 +6,26 @@ import {
   handlePollStop,
   handlePollTitleChange,
   handlePollVote,
-} from "../src/stateUpdaters.js";
+} from '../src/stateUpdaters.js';
 
 let pollState;
 
-describe("handlePollStart()", function () {
-  describe("when no current poll is active or visible", function () {
+describe('handlePollStart()', function () {
+  describe('when no current poll is active or visible', function () {
     beforeEach(function () {
       pollState = {
         active: false,
         visible: false,
-        title: "Poll",
+        title: 'Poll',
         options: {},
         userVotes: {},
       };
     });
 
     it('keeps the default title "Poll"', function () {
-      expect(pollState.title).to.equal("Poll");
+      expect(pollState.title).to.equal('Poll');
       const newState = handlePollStart(`!poll`, pollState);
-      expect(newState.title).to.equal("Poll");
+      expect(newState.title).to.equal('Poll');
     });
 
     it(`starts a poll when message is: !poll`, function () {
@@ -95,51 +95,51 @@ describe("handlePollStart()", function () {
     });
 
     describe(`when receiving the message: !poll`, function () {
-      it("sets the poll state to active, visible and with two options", function () {
+      it('sets the poll state to active, visible and with two options', function () {
         const newState = handlePollStart(`!poll`, pollState);
 
         expect(newState).to.eql({
           active: true,
           visible: true,
-          title: "Poll",
-          options: { 1: " ", 2: " " },
+          title: 'Poll',
+          options: { 1: ' ', 2: ' ' },
           userVotes: {},
         });
       });
     });
 
     describe(`when receiving the message: !poll 2`, function () {
-      it("sets the poll state to active, visible and with two options", function () {
-        const newState = handlePollStart("!poll 2", pollState);
+      it('sets the poll state to active, visible and with two options', function () {
+        const newState = handlePollStart('!poll 2', pollState);
 
         expect(newState).to.eql({
           active: true,
           visible: true,
-          title: "Poll",
-          options: { 1: " ", 2: " " },
+          title: 'Poll',
+          options: { 1: ' ', 2: ' ' },
           userVotes: {},
         });
       });
     });
 
     describe(`when receiving the message: !poll 9`, function () {
-      it("sets the poll state to active, visible and with nine options", function () {
-        const newState = handlePollStart("!poll 9", pollState);
+      it('sets the poll state to active, visible and with nine options', function () {
+        const newState = handlePollStart('!poll 9', pollState);
 
         expect(newState).to.eql({
           active: true,
           visible: true,
-          title: "Poll",
+          title: 'Poll',
           options: {
-            1: " ",
-            2: " ",
-            3: " ",
-            4: " ",
-            5: " ",
-            6: " ",
-            7: " ",
-            8: " ",
-            9: " ",
+            1: ' ',
+            2: ' ',
+            3: ' ',
+            4: ' ',
+            5: ' ',
+            6: ' ',
+            7: ' ',
+            8: ' ',
+            9: ' ',
           },
           userVotes: {},
         });
@@ -147,168 +147,168 @@ describe("handlePollStart()", function () {
     });
   });
 
-  describe("when a poll is currently active", function () {
+  describe('when a poll is currently active', function () {
     beforeEach(function () {
       pollState = {
         active: true,
         visible: false,
-        title: "Poll",
+        title: 'Poll',
         options: {},
         userVotes: {},
       };
     });
 
-    it("does not alter the current poll state", function () {
+    it('does not alter the current poll state', function () {
       const newState = handlePollStart(`!poll`, pollState);
       expect(newState).to.equal(pollState);
     });
   });
 
-  describe("when a poll is currently visible", function () {
+  describe('when a poll is currently visible', function () {
     beforeEach(function () {
       pollState = {
         active: false,
         visible: true,
-        title: "Poll",
+        title: 'Poll',
         options: {},
         userVotes: {},
       };
     });
 
-    it("does not alter the current poll state", function () {
+    it('does not alter the current poll state', function () {
       const newState = handlePollStart(`!poll`, pollState);
       expect(newState).to.equal(pollState);
     });
   });
 
-  describe("when a poll is currently active and visible", function () {
+  describe('when a poll is currently active and visible', function () {
     beforeEach(function () {
       pollState = {
         active: true,
         visible: true,
-        title: "Poll",
+        title: 'Poll',
         options: {},
         userVotes: {},
       };
     });
 
-    it("does not alter the current poll state", function () {
+    it('does not alter the current poll state', function () {
       const newState = handlePollStart(`!poll`, pollState);
       expect(newState).to.equal(pollState);
     });
   });
 });
 
-describe("handlePollStop()", function () {
+describe('handlePollStop()', function () {
   beforeEach(function () {
     pollState = {
       active: true,
       visible: true,
-      title: "Poll",
-      options: { 1: " ", 2: " " },
+      title: 'Poll',
+      options: { 1: ' ', 2: ' ' },
       userVotes: {},
     };
   });
 
-  it("sets the poll to inactive", function () {
+  it('sets the poll to inactive', function () {
     const newState = handlePollStop(pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Poll",
-      options: { 1: " ", 2: " " },
+      title: 'Poll',
+      options: { 1: ' ', 2: ' ' },
       userVotes: {},
     });
   });
 });
 
-describe("handlePollResume()", function () {
+describe('handlePollResume()', function () {
   beforeEach(function () {
     pollState = {
       active: false,
       visible: true,
-      title: "Poll",
-      options: { 1: " ", 2: " " },
+      title: 'Poll',
+      options: { 1: ' ', 2: ' ' },
       userVotes: {},
     };
   });
 
-  it("sets the poll state to active", function () {
+  it('sets the poll state to active', function () {
     const newState = handlePollResume(pollState);
     expect(newState).to.eql({
       active: true,
       visible: true,
-      title: "Poll",
-      options: { 1: " ", 2: " " },
+      title: 'Poll',
+      options: { 1: ' ', 2: ' ' },
       userVotes: {},
     });
   });
 });
 
-describe("handlePollEnd()", function () {
-  describe("when the poll is active and visible", function () {
+describe('handlePollEnd()', function () {
+  describe('when the poll is active and visible', function () {
     beforeEach(function () {
       pollState = {
         active: true,
         visible: true,
-        title: "Special Title",
-        options: { 1: " ", 2: " " },
-        userVotes: { user1: "1", user2: "2" },
+        title: 'Special Title',
+        options: { 1: ' ', 2: ' ' },
+        userVotes: { user1: '1', user2: '2' },
       };
     });
 
-    it("resets the poll state to the initial state", function () {
+    it('resets the poll state to the initial state', function () {
       const newState = handlePollEnd(pollState);
       expect(newState).to.eql({
         active: false,
         visible: false,
-        title: "Poll",
+        title: 'Poll',
         options: {},
         userVotes: {},
       });
     });
   });
 
-  describe("when the poll visible but inactive", function () {
+  describe('when the poll visible but inactive', function () {
     beforeEach(function () {
       pollState = {
         active: false,
         visible: true,
-        title: "Special Title",
-        options: { 1: " ", 2: " " },
-        userVotes: { user1: "1", user2: "2" },
+        title: 'Special Title',
+        options: { 1: ' ', 2: ' ' },
+        userVotes: { user1: '1', user2: '2' },
       };
     });
 
-    it("resets the poll state to the initial state", function () {
+    it('resets the poll state to the initial state', function () {
       const newState = handlePollEnd(pollState);
       expect(newState).to.eql({
         active: false,
         visible: false,
-        title: "Poll",
+        title: 'Poll',
         options: {},
         userVotes: {},
       });
     });
   });
 
-  describe("when the poll is not visible and not active", function () {
+  describe('when the poll is not visible and not active', function () {
     beforeEach(function () {
       pollState = {
         active: false,
         visible: false,
-        title: "Special Title",
-        options: { 1: " ", 2: " " },
-        userVotes: { user1: "1", user2: "2" },
+        title: 'Special Title',
+        options: { 1: ' ', 2: ' ' },
+        userVotes: { user1: '1', user2: '2' },
       };
     });
 
-    it("resets the poll state to the initial state", function () {
+    it('resets the poll state to the initial state', function () {
       const newState = handlePollEnd(pollState);
       expect(newState).to.eql({
         active: false,
         visible: false,
-        title: "Poll",
+        title: 'Poll',
         options: {},
         userVotes: {},
       });
@@ -316,161 +316,158 @@ describe("handlePollEnd()", function () {
   });
 });
 
-describe("handlePollTitleChange()", function () {
+describe('handlePollTitleChange()', function () {
   beforeEach(function () {
     pollState = {
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "2" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '2' },
     };
   });
 
-  it("sets the poll title to the new title and keeps everything else as-is", function () {
-    const newState = handlePollTitleChange(
-      '!polltitle "A New Title"',
-      pollState
-    );
+  it('sets the poll title to the new title and keeps everything else as-is', function () {
+    const newState = handlePollTitleChange('!polltitle "A New Title"', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "A New Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "2" },
+      title: 'A New Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '2' },
     });
   });
 });
 
-describe("handlePollVote()", function () {
+describe('handlePollVote()', function () {
   beforeEach(function () {
     pollState = {
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "2" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '2' },
     };
   });
 
   it("overrides a user's previous vote to a new vote", function () {
-    const newState = handlePollVote("2", "user1", pollState);
+    const newState = handlePollVote('2', 'user1', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "2", user2: "2" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '2', user2: '2' },
     });
   });
 
   it("sets user's previous vote to 0 when zero is provided", function () {
-    const newState = handlePollVote("0", "user1", pollState);
+    const newState = handlePollVote('0', 'user1', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "0", user2: "2" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '0', user2: '2' },
     });
   });
 
-  it("creates a new vote when a user votes for the first time", function () {
-    const newState = handlePollVote("2", "user3", pollState);
+  it('creates a new vote when a user votes for the first time', function () {
+    const newState = handlePollVote('2', 'user3', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "2", user3: "2" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '2', user3: '2' },
     });
   });
 
-  it("ignores a vote that is higher than the max number of options", function () {
-    const newState = handlePollVote("3", "user2", pollState);
+  it('ignores a vote that is higher than the max number of options', function () {
+    const newState = handlePollVote('3', 'user2', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "2" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '2' },
     });
   });
 
-  it("ignores a vote that is less than zero", function () {
-    const newState = handlePollVote("-1", "user2", pollState);
+  it('ignores a vote that is less than zero', function () {
+    const newState = handlePollVote('-1', 'user2', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "2" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '2' },
     });
   });
 
-  it("accepts poll votes with a number with a trailing space", function () {
-    const newState = handlePollVote("1 ", "user2", pollState);
+  it('accepts poll votes with a number with a trailing space', function () {
+    const newState = handlePollVote('1 ', 'user2', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "1" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '1' },
     });
   });
 
-  it("accepts poll votes with a number with a leading space", function () {
-    const newState = handlePollVote(" 1", "user2", pollState);
+  it('accepts poll votes with a number with a leading space', function () {
+    const newState = handlePollVote(' 1', 'user2', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "1" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '1' },
     });
   });
 
-  it("accepts poll votes with a number both with a leading and trailing space", function () {
-    const newState = handlePollVote(" 1 ", "user2", pollState);
+  it('accepts poll votes with a number both with a leading and trailing space', function () {
+    const newState = handlePollVote(' 1 ', 'user2', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "1" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '1' },
     });
   });
 
-  it("accepts poll votes with a number followed by space and another string", function () {
-    const newState = handlePollVote(" 1 LUL", "user2", pollState);
+  it('accepts poll votes with a number followed by space and another string', function () {
+    const newState = handlePollVote(' 1 LUL', 'user2', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "1" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '1' },
     });
   });
 
-  it("does not accept poll votes with a number followed by another number", function () {
-    const newState = handlePollVote("11", "user2", pollState);
+  it('does not accept poll votes with a number followed by another number', function () {
+    const newState = handlePollVote('11', 'user2', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "2" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '2' },
     });
   });
 
-  it("does not accept poll votes with a number followed directly by another string", function () {
-    const newState = handlePollVote("1test", "user2", pollState);
+  it('does not accept poll votes with a number followed directly by another string', function () {
+    const newState = handlePollVote('1test', 'user2', pollState);
     expect(newState).to.eql({
       active: false,
       visible: true,
-      title: "Some Title",
-      options: { 1: " ", 2: " " },
-      userVotes: { user1: "1", user2: "2" },
+      title: 'Some Title',
+      options: { 1: ' ', 2: ' ' },
+      userVotes: { user1: '1', user2: '2' },
     });
   });
 });

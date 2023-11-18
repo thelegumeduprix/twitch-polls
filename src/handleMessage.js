@@ -7,42 +7,42 @@ import {
   isPollTitleChange,
   isPositionChange,
   isPrivilegedUser,
-  isValidVote
-} from './messageCheckers'
+  isValidVote,
+} from './messageCheckers';
 
-import store from './store'
+import store from './store';
 
 export function handleMessage(tags, message) {
   if (isPollStart(message) && isPrivilegedUser(tags)) {
-    store.startPoll(message)
+    store.startPoll(message);
   }
 
   if (isPollStop(message) && isPrivilegedUser(tags)) {
-    store.stopPoll()
+    store.stopPoll();
   }
 
   if (isPollResume(message) && isPrivilegedUser(tags)) {
-    store.resumePoll()
+    store.resumePoll();
   }
 
   if (isPollEnd(message) && isPrivilegedUser(tags)) {
-    store.endPoll()
+    store.endPoll();
   }
 
   if (isPollTitleChange(message) && isPrivilegedUser(tags)) {
-    store.updatePollTitle(message)
+    store.updatePollTitle(message);
   }
 
   if (isPositionChange(message) && isPrivilegedUser(tags)) {
-    store.updatePosition(message)
+    store.updatePosition(message);
   }
 
   if (isPollReset(message) && isPrivilegedUser(tags)) {
-    store.resetPoll()
+    store.resetPoll();
   }
 
   // anyone enters a poll vote while a poll is active
   if (isValidVote(message)) {
-    store.castVote(message, tags.username)
+    store.castVote(message, tags.username);
   }
 }

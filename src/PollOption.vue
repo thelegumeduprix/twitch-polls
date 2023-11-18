@@ -25,23 +25,23 @@ export default {
     optionName: String,
     voteCount: Number,
     totalCount: Number,
-    winningOptions: Array
+    winningOptions: Array,
   },
   computed: {
     percentage() {
-      return this.totalCount === 0 ? 0 : Math.round((this.voteCount / this.totalCount) * 100)
+      return this.totalCount === 0 ? 0 : Math.round((this.voteCount / this.totalCount) * 100);
     },
     optionClasses() {
       if (this.winningOptions.includes(this.optionNumber)) {
         if (this.winningOptions.length === 1) {
-          return 'winning-option animate__animated animate__bounceIn'
+          return 'winning-option animate__animated animate__bounceIn';
         } else {
-          return 'draw-option animate__animated animate__shakeX'
+          return 'draw-option animate__animated animate__shakeX';
         }
       }
 
-      return ''
-    }
-  }
-}
+      return '';
+    },
+  },
+};
 </script>
