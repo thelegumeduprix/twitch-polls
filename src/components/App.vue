@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { getTotalVoteCount, getVoteCountsPerOption, getWinningOptions } from '../computations';
+import { getTotalVoteCount, getVoteCountsPerOption, getWinningOptions } from '../helpers';
 import { POSITION_MAP } from '../setup';
 import store from '../store';
 import PollOption from './PollOption.vue';
@@ -187,3 +187,4 @@ body {
   background-color: orange;
 }
 </style>
+../helpers
