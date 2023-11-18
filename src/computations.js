@@ -1,4 +1,4 @@
-export function filterValidUserVotes(pollState) {
+function filterValidUserVotes(pollState) {
   return Object.entries(pollState.userVotes).reduce((result, [user, vote]) => {
     if (vote !== "0") {
       result[user] = vote;
