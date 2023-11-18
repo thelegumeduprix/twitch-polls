@@ -6,6 +6,7 @@ import {
   POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN,
   POLL_SIMPLE_DETECTION_PATTERN,
   POLL_VOTE_EXTRACTION_PATTERN,
+  isPollStart,
 } from './messageCheckers.js';
 
 const DEBUG_POLL_STATE = {
@@ -70,7 +71,7 @@ export default reactive({
   },
   startPoll(message) {
     // don't do anything if the a poll is still running
-    if (this.visible || this.active) return;
+    if (this.visible || this.active || !isPollStart(message)) return;
 
     this.options = {};
     this.userVotes = {};

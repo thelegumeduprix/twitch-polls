@@ -236,102 +236,58 @@ describe('isPrivilegedUser()', function () {
 });
 
 describe('isValidVote()', function () {
-  it('returns false if the poll is inactive', function () {
-    const pollState = {
-      active: false,
-      visible: true,
-      title: 'Some Title',
-      options: { 1: ' ', 2: ' ' },
-      userVotes: { user1: '1', user2: '2' },
-    };
-
-    const message = '2';
-
-    expect(isValidVote(message, pollState)).to.be.false;
-  });
-
-  it('returns false if the poll is invisible', function () {
-    const pollState = {
-      active: true,
-      visible: false,
-      title: 'Some Title',
-      options: { 1: ' ', 2: ' ' },
-      userVotes: { user1: '1', user2: '2' },
-    };
-
-    const message = '2';
-
-    expect(isValidVote(message, pollState)).to.be.false;
-  });
-
   it('returns false if the message does not start with a separate single digit number', function () {
-    const pollState = {
-      active: true,
-      visible: true,
-      title: 'Some Title',
-      options: { 1: ' ', 2: ' ' },
-      userVotes: { user1: '1', user2: '2' },
-    };
-
     let message = 'some text';
-    expect(isValidVote(message, pollState)).to.be.false;
+    expect(isValidVote(message)).to.be.false;
 
     message = 'some text 2';
-    expect(isValidVote(message, pollState)).to.be.false;
+    expect(isValidVote(message)).to.be.false;
 
     message = '2text';
-    expect(isValidVote(message, pollState)).to.be.false;
+    expect(isValidVote(message)).to.be.false;
 
     message = ' 2text';
-    expect(isValidVote(message, pollState)).to.be.false;
+    expect(isValidVote(message)).to.be.false;
   });
 
   it('returns true if the message starts with a separate single digit number', function () {
-    const pollState = {
-      active: true,
-      visible: true,
-      title: 'Some Title',
-      options: { 1: ' ', 2: ' ' },
-      userVotes: { user1: '1', user2: '2' },
-    };
-
     let message = '9';
-    expect(isValidVote(message, pollState)).to.be.true;
+    expect(isValidVote(message)).to.be.true;
 
     message = '0';
-    expect(isValidVote(message, pollState)).to.be.true;
+    expect(isValidVote(message)).to.be.true;
 
     message = '2';
-    expect(isValidVote(message, pollState)).to.be.true;
+    expect(isValidVote(message)).to.be.true;
 
     message = '99';
-    expect(isValidVote(message, pollState)).to.be.false;
+    expect(isValidVote(message)).to.be.false;
 
     message = '2 test';
-    expect(isValidVote(message, pollState)).to.be.true;
+    expect(isValidVote(message)).to.be.true;
 
     message = '2 test ';
-    expect(isValidVote(message, pollState)).to.be.true;
+    expect(isValidVote(message)).to.be.true;
 
     message = ' 2 test';
-    expect(isValidVote(message, pollState)).to.be.true;
+    expect(isValidVote(message)).to.be.true;
 
     message = ' 2 test ';
-    expect(isValidVote(message, pollState)).to.be.true;
+    expect(isValidVote(message)).to.be.true;
 
     message = '2test';
-    expect(isValidVote(message, pollState)).to.be.false;
+    expect(isValidVote(message)).to.be.false;
 
     message = ' 2test';
-    expect(isValidVote(message, pollState)).to.be.false;
+    expect(isValidVote(message)).to.be.false;
 
     message = ' 2test ';
-    expect(isValidVote(message, pollState)).to.be.false;
+    expect(isValidVote(message)).to.be.false;
 
     message = 'test 2';
-    expect(isValidVote(message, pollState)).to.be.false;
+    expect(isValidVote(message)).to.be.false;
 
     message = 'test2';
-    expect(isValidVote(message, pollState)).to.be.false;
+    expect(isValidVote(message)).to.be.false;
   });
 });

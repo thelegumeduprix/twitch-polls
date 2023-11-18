@@ -382,7 +382,7 @@ describe('handlePollTitleChange()', function () {
 describe('store.castVote()', function () {
   beforeEach(function () {
     Object.assign(store, {
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
@@ -393,7 +393,7 @@ describe('store.castVote()', function () {
   it("overrides a user's previous vote to a new vote", function () {
     store.castVote('2', 'user1');
     expectStore().toEqual({
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
@@ -404,7 +404,7 @@ describe('store.castVote()', function () {
   it("sets user's previous vote to 0 when zero is provided", function () {
     store.castVote('0', 'user1');
     expectStore().toEqual({
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
@@ -415,7 +415,7 @@ describe('store.castVote()', function () {
   it('creates a new vote when a user votes for the first time', function () {
     store.castVote('2', 'user3');
     expectStore().toEqual({
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
@@ -426,7 +426,7 @@ describe('store.castVote()', function () {
   it('ignores a vote that is higher than the max number of options', function () {
     store.castVote('3', 'user2');
     expectStore().toEqual({
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
@@ -437,7 +437,7 @@ describe('store.castVote()', function () {
   it('ignores a vote that is less than zero', function () {
     store.castVote('-1', 'user2');
     expectStore().toEqual({
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
@@ -448,7 +448,7 @@ describe('store.castVote()', function () {
   it('accepts poll votes with a number with a trailing space', function () {
     store.castVote('1 ', 'user2');
     expectStore().toEqual({
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
@@ -459,7 +459,7 @@ describe('store.castVote()', function () {
   it('accepts poll votes with a number with a leading space', function () {
     store.castVote(' 1', 'user2');
     expectStore().toEqual({
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
@@ -470,7 +470,7 @@ describe('store.castVote()', function () {
   it('accepts poll votes with a number both with a leading and trailing space', function () {
     store.castVote(' 1 ', 'user2');
     expectStore().toEqual({
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
@@ -481,7 +481,7 @@ describe('store.castVote()', function () {
   it('accepts poll votes with a number followed by space and another string', function () {
     store.castVote(' 1 LUL', 'user2');
     expectStore().toEqual({
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
@@ -492,7 +492,7 @@ describe('store.castVote()', function () {
   it('does not accept poll votes with a number followed by another number', function () {
     store.castVote('11', 'user2');
     expectStore().toEqual({
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
@@ -503,11 +503,23 @@ describe('store.castVote()', function () {
   it('does not accept poll votes with a number followed directly by another string', function () {
     store.castVote('1test', 'user2');
     expectStore().toEqual({
-      active: false,
+      active: true,
       visible: true,
       title: 'Some Title',
       options: { 1: ' ', 2: ' ' },
       userVotes: { user1: '1', user2: '2' },
     });
+  });
+
+  it('does not accept poll votes if the poll is inactive', function () {
+    store.active = false;
+    store.castVote('1', 'user2');
+    expect(store.userVotes).toEqual({ user1: '1', user2: '2' });
+  });
+
+  it('does not accept poll votes if the poll is invisible', function () {
+    store.visible = false;
+    store.castVote('1', 'user2');
+    expect(store.userVotes).toEqual({ user1: '1', user2: '2' });
   });
 });
