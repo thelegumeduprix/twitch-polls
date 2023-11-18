@@ -94,7 +94,7 @@ export default reactive({
     } else if (POLL_QUOTED_PARAMETER_DETECTION_PATTERN.test(message)) {
       const options = [...message.matchAll(POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN)].map((match) => match[1]);
 
-      const title = options.shift();
+      const title = options.shift() || 'Poll';
       this.title = title;
 
       options.forEach((option, index) => {
