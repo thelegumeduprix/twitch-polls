@@ -1,10 +1,11 @@
 import {
   filterValidUserVotes,
-  getWinningOptions,
-  getVoteCountsPerOption,
   getTotalVoteCount,
+  getVoteCountsPerOption,
+  getWinningOptions,
 } from '../src/stateComputations.js';
-import { expect } from 'chai';
+
+import { beforeEach, describe, expect, it } from 'vitest';
 
 let pollState;
 
