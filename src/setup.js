@@ -22,6 +22,10 @@ export function setup() {
 
   if (DEBUG) {
     store.setDebugMode(true)
+
+    window.chat = (message, username = 'testuser', mod = true) => {
+      handleMessage({ mod, username }, message)
+    }
   }
 
   const client = tmi.Client({
