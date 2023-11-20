@@ -248,6 +248,18 @@ describe('isValidVote()', function () {
 
     message = ' 2text';
     expect(isValidVote(message)).to.be.false;
+
+    message = '99';
+    expect(isValidVote(message)).to.be.false;
+
+    message = ' 2test ';
+    expect(isValidVote(message)).to.be.false;
+
+    message = 'test 2';
+    expect(isValidVote(message)).to.be.false;
+
+    message = 'test2';
+    expect(isValidVote(message)).to.be.false;
   });
 
   it('returns true if the message starts with a separate single digit number', function () {
@@ -260,9 +272,6 @@ describe('isValidVote()', function () {
     message = '2';
     expect(isValidVote(message)).to.be.true;
 
-    message = '99';
-    expect(isValidVote(message)).to.be.false;
-
     message = '2 test';
     expect(isValidVote(message)).to.be.true;
 
@@ -274,20 +283,5 @@ describe('isValidVote()', function () {
 
     message = ' 2 test ';
     expect(isValidVote(message)).to.be.true;
-
-    message = '2test';
-    expect(isValidVote(message)).to.be.false;
-
-    message = ' 2test';
-    expect(isValidVote(message)).to.be.false;
-
-    message = ' 2test ';
-    expect(isValidVote(message)).to.be.false;
-
-    message = 'test 2';
-    expect(isValidVote(message)).to.be.false;
-
-    message = 'test2';
-    expect(isValidVote(message)).to.be.false;
   });
 });
