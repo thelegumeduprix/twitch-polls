@@ -5,10 +5,7 @@
     :key="optionNumber"
   >
     <div>
-      <div
-        class="option-number"
-        ref="optionNumber"
-      >
+      <div class="option-number">
         {{ optionNumber }}
       </div>
       <span :contentEditable="true">{{ optionName }}</span
@@ -37,44 +34,55 @@ export default {
     totalCount: Number,
     winningOptions: Array,
   },
-  mounted() {
-    this.setContrastingTextColor();
-  },
-  updated() {
-    this.setContrastingTextColor();
-  },
-  methods: {
-    setContrastingTextColor() {
-      this.$nextTick(() => {
-        console.log('TESERTJseroisjerosjerojseorjseojr');
-        const element = this.$refs.optionNumber;
-        const backgroundColor = getComputedStyle(element).backgroundColor;
-
-        const toWhiteContrast = colord(backgroundColor).contrast('#ffffff');
-        const toBlackContrast = colord(backgroundColor).contrast('#000000');
-
-        if (toWhiteContrast > toBlackContrast) {
-          element.style.color = '#ffffff';
-        } else {
-          element.style.color = '#000000';
-        }
-      });
-    },
-  },
   computed: {
     percentage() {
       return this.totalCount === 0 ? 0 : Math.round((this.voteCount / this.totalCount) * 100);
     },
-    optionClasses() {
+    /**
+     * @returns {'win'|'draw'|''} a text representation of the status of this option
+     */
+    optionStatus() {
       if (this.winningOptions.includes(this.optionNumber)) {
         if (this.winningOptions.length === 1) {
-          return 'win-option animate__animated animate__bounceIn';
+          return 'win';
         } else {
-          return 'draw-option animate__animated animate__shakeX';
+          return 'draw';
         }
       }
-
       return '';
+    },
+    optionClasses() {
+      switch (this.optionStatus) {
+        case 'win':
+          return 'win-option animate__animated animate__bounceIn';
+        case 'draw':
+          return 'draw-option animate__animated animate__shakeX';
+        default:
+          return '';
+      }
+    },
+    optionBackground() {
+      // the interesting custom properties should exist on :root (and thus the body)
+      const style = getComputedStyle(document.body);
+      switch (this.optionStatus) {
+        case 'win':
+          return style.getPropertyValue('--option-color-win');
+        case 'draw':
+          return style.getPropertyValue('--option-color-draw');
+        default:
+          return style.getPropertyValue('--option-color');
+      }
+    },
+    contrastingTextColor() {
+      const backgroundColor = this.optionBackground;
+      const toWhiteContrast = colord(backgroundColor).contrast('#ffffff');
+      const toBlackContrast = colord(backgroundColor).contrast('#000000');
+
+      if (toWhiteContrast > toBlackContrast) {
+        return '#fff';
+      } else {
+        return '#000';
+      }
     },
   },
 };
@@ -87,6 +95,7 @@ export default {
 
 .option-number {
   background-color: var(--option-color);
+  color: v-bind(contrastingTextColor);
   width: 40px;
   height: 40px;
   text-align: center;
