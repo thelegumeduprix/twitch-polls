@@ -59,40 +59,6 @@ export default {
 
 <style>
 /* Reusable CSS variables */
-:root {
-  --size-xxs: 0.125rem;
-  /* = 2px */
-  --size-xs: 0.25rem;
-  /* = 4px */
-  --size-s: 0.5rem;
-  /* = 8px */
-  --size-m: 1rem;
-  /* = 16px */
-  --size-l: 1.5rem;
-  /* = 24px */
-  --size-xl: 2rem;
-  /* = 32 px */
-  --size-xxl: 2.5rem;
-  /* = 40 px */
-}
-
-/* Very basic HTML resets */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-family: Futura, sans-serif;
-  color: #ffffff;
-}
-
-body {
-  height: 100vh;
-  font-size: var(--size-l);
-}
-
 .container {
   display: flex;
   height: 100%;
@@ -122,7 +88,7 @@ body {
   max-width: 600px;
   padding: var(--size-xl);
   border-radius: var(--size-xxl);
-  background-color: rgba(0, 0, 0, 0.99);
+  background-color: var(--poll-background-color);
 }
 
 .poll-title {

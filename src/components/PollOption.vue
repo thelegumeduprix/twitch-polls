@@ -5,7 +5,12 @@
     :key="optionNumber"
   >
     <div>
-      <div class="option-number">{{ optionNumber }}</div>
+      <div
+        class="option-number"
+        ref="optionNumber"
+      >
+        {{ optionNumber }}
+      </div>
       <span :contentEditable="true">{{ optionName }}</span
       >: <span class="percentage">{{ percentage }}% ({{ voteCount }})</span>
     </div>
@@ -19,6 +24,11 @@
 </template>
 
 <script>
+import { colord, extend } from 'colord';
+import a11yPlugin from 'colord/plugins/a11y';
+
+extend([a11yPlugin]);
+
 export default {
   props: {
     optionNumber: String,
@@ -27,6 +37,30 @@ export default {
     totalCount: Number,
     winningOptions: Array,
   },
+  mounted() {
+    this.setContrastingTextColor();
+  },
+  updated() {
+    this.setContrastingTextColor();
+  },
+  methods: {
+    setContrastingTextColor() {
+      this.$nextTick(() => {
+        console.log('TESERTJseroisjerosjerojseorjseojr');
+        const element = this.$refs.optionNumber;
+        const backgroundColor = getComputedStyle(element).backgroundColor;
+
+        const toWhiteContrast = colord(backgroundColor).contrast('#ffffff');
+        const toBlackContrast = colord(backgroundColor).contrast('#000000');
+
+        if (toWhiteContrast > toBlackContrast) {
+          element.style.color = '#ffffff';
+        } else {
+          element.style.color = '#000000';
+        }
+      });
+    },
+  },
   computed: {
     percentage() {
       return this.totalCount === 0 ? 0 : Math.round((this.voteCount / this.totalCount) * 100);
@@ -34,7 +68,7 @@ export default {
     optionClasses() {
       if (this.winningOptions.includes(this.optionNumber)) {
         if (this.winningOptions.length === 1) {
-          return 'winning-option animate__animated animate__bounceIn';
+          return 'win-option animate__animated animate__bounceIn';
         } else {
           return 'draw-option animate__animated animate__shakeX';
         }
@@ -52,8 +86,7 @@ export default {
 }
 
 .option-number {
-  background-color: #823597;
-  color: #ffffff;
+  background-color: var(--option-color);
   width: 40px;
   height: 40px;
   text-align: center;
@@ -66,7 +99,7 @@ export default {
 
 .progress-bar-container {
   width: 100%;
-  border: var(--size-xs) solid #823597;
+  border: var(--size-xs) solid var(--option-color);
   border-radius: var(--size-s);
   margin-top: var(--size-s);
 }
@@ -75,32 +108,30 @@ export default {
   transition: width 600ms ease-in-out;
   width: 0;
   height: 30px;
-  background-color: #823597;
+  background-color: var(--option-color);
 }
 
-.option.winning-option .progress-bar-container {
-  border-color: #1ed581;
+.option.win-option .progress-bar-container {
+  border-color: var(--option-color-win);
 }
 
-.option.winning-option .progress-bar-container .progress-bar {
-  background-color: #1ed581;
+.option.win-option .progress-bar-container .progress-bar {
+  background-color: var(--option-color-win);
 }
 
-.option.winning-option .option-number {
-  background-color: #1ed581;
-  color: #000000;
+.option.win-option .option-number {
+  background-color: var(--option-color-win);
 }
 
 .option.draw-option .progress-bar-container {
-  border-color: orange;
+  border-color: var(--option-color-draw);
 }
 
 .option.draw-option .option-number {
-  background-color: orange;
-  color: #000000;
+  background-color: var(--option-color-draw);
 }
 
 .option.draw-option .progress-bar-container .progress-bar {
-  background-color: orange;
+  background-color: var(--option-color-draw);
 }
 </style>
