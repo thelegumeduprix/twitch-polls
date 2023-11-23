@@ -29,6 +29,7 @@
   "author": "@thelegumeduprix",
   "license": "GPL-3.0",
   "dependencies": {
+    "colord": "^2.9.3",
     "tmi.js": "^1.8.5",
     "vue": "^3.3.4"
   },
