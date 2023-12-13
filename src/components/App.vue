@@ -58,7 +58,6 @@ export default {
 </script>
 
 <style>
-/* Reusable CSS variables */
 .container {
   display: flex;
   height: 100%;
