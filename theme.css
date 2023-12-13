@@ -1,10 +1,10 @@
 /* Reusable CSS variables */
 :root {
-  --poll-background-color: lightgoldenrodyellow; /* rgba(0, 0, 0, 0.99) */
-  --poll-text-color: salmon;
-  --option-color: #e0a6be;
-  --option-color-win: blue;
-  --option-color-draw: yellow;
+  --poll-background-color: rgba(0, 0, 0, 0.99);
+  --poll-text-color: #fff;
+  --option-color: #823597;
+  --option-color-win: #1ed581;
+  --option-color-draw: orange;
   --poll-corner-radius: 40px;
   --poll-padding: 32px;
   --body-text-font-family: Futura, system-ui, sans-serif;
