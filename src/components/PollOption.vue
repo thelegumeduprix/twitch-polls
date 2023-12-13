@@ -23,8 +23,9 @@
 <script>
 import { colord, extend } from 'colord';
 import a11yPlugin from 'colord/plugins/a11y';
+import namesPlugin from "colord/plugins/names";
 
-extend([a11yPlugin]);
+extend([a11yPlugin, namesPlugin]);
 
 export default {
   props: {
@@ -74,7 +75,7 @@ export default {
       }
     },
     contrastingTextColor() {
-      const backgroundColor = this.optionBackground;
+      const backgroundColor = colord(this.optionBackground).toHex();
       const toWhiteContrast = colord(backgroundColor).contrast('#ffffff');
       const toBlackContrast = colord(backgroundColor).contrast('#000000');
 
