@@ -86,13 +86,14 @@ export default {
 .poll {
   min-width: 25%;
   max-width: 600px;
-  padding: var(--size-xl);
-  border-radius: var(--size-xxl);
+  padding: var(--poll-padding);
+  border-radius: var(--poll-corner-radius);
   background-color: var(--poll-background-color);
 }
 
 .poll-title {
-  font-size: var(--size-xl);
+  font-family: var(--poll-title-font-family);
+  font-size: var(--poll-title-font-size);
   margin-bottom: var(--size-xl);
 }
 </style>

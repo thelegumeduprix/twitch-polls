@@ -96,12 +96,9 @@ export default {
 .option-number {
   background-color: var(--option-color);
   color: v-bind(contrastingTextColor);
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  line-height: 40px;
+  padding: 0.2em 0.5em;
   font-weight: bold;
-  border-radius: var(--size-s);
+  border-radius: var(--poll-option-corner-radius);
   display: inline-block;
   margin-inline-end: var(--size-s);
 }
@@ -109,8 +106,9 @@ export default {
 .progress-bar-container {
   width: 100%;
   border: var(--size-xs) solid var(--option-color);
-  border-radius: var(--size-s);
+  border-radius: var(--poll-option-corner-radius);
   margin-top: var(--size-s);
+  overflow: hidden;
 }
 
 .progress-bar {

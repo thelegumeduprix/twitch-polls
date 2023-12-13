@@ -5,6 +5,13 @@
   --option-color: #e0a6be;
   --option-color-win: blue;
   --option-color-draw: yellow;
+  --poll-corner-radius: 40px;
+  --poll-padding: 32px;
+  --body-text-font-family: Futura, system-ui, sans-serif;
+  --body-text-font-size: 24px;
+  --poll-title-font-family: Futura, system-ui, sans-serif;
+  --poll-title-font-size: 32px;
+  --poll-option-corner-radius: 8px;
 
   --size-xxs: 0.125rem; /* = 2px */
   --size-xs: 0.25rem; /* = 4px */
@@ -23,11 +30,11 @@
 }
 
 html {
-  font-family: Futura, sans-serif;
+  font-family: var(--body-text-font-family);
   color: var(--poll-text-color);
 }
 
 body {
   height: 100vh;
-  font-size: var(--size-l);
+  font-size: var(--body-text-font-size);
 }
