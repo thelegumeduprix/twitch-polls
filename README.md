@@ -1,6 +1,10 @@
-# Twitch Polling Tool
+# 🚧 WIP Twitch Polling Tool 🚧 WIP
 
 A Twitch polling tool bot and poll visualization overlay for custom polls.
+
+## Themeability
+
+You can customize some aspects of the poll design by altering the CSS values at the top of `theme.css`
 
 ## Getting Started
 
