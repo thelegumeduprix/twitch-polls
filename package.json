@@ -1,7 +1,7 @@
 {
   "name": "twitch-polls",
   "private": true,
-  "version": "3.0.0-beta",
+  "version": "2.0.0",
   "description": "A Twitch polling tool bot and poll visualization overlay for custom polls.",
   "main": "index.html",
   "type": "module",
