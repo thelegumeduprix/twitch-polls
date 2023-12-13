@@ -37,7 +37,7 @@
     "@types/tmi.js": "^1.8.5",
     "@vitejs/plugin-vue": "^4.4.0",
     "@vue/eslint-config-prettier": "^8.0.0",
-    "@vue/test-utils": "^2.4.1",
+    "@vue/test-utils": "^2.4.3",
     "chai-match": "^1.1.1",
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
