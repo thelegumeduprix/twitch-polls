@@ -23,7 +23,7 @@
 <script>
 import { colord, extend } from 'colord';
 import a11yPlugin from 'colord/plugins/a11y';
-import namesPlugin from "colord/plugins/names";
+import namesPlugin from 'colord/plugins/names';
 
 extend([a11yPlugin, namesPlugin]);
 
