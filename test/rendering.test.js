@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from 'vitest';
-import { mount } from "@vue/test-utils";
+import { mount } from '@vue/test-utils';
 import App from '../src/components/App.vue';
 import store from '../src/store.js';
 import { handleMessage } from '../src/handleMessage.js';
@@ -26,31 +26,28 @@ const INITIAL_POLL_STATE = {
 };
 
 const pollWrapper = mount(App, {
-  attachTo: 'body' // 'attachTo' is necessary for isVisible() to work properly
+  attachTo: 'body', // 'attachTo' is necessary for isVisible() to work properly
 });
 
 describe('rendering', function () {
-
   describe('when receiving a simple poll start command', function () {
     beforeAll(function () {
       Object.assign(store, structuredClone(INITIAL_POLL_STATE));
       handleMessage(USER_1, '!poll');
     });
 
-
     it('shows the poll', function () {
       expect(pollWrapper.get('.poll').isVisible()).to.be.true;
     });
 
     it('renders a poll with a default title', function () {
-      const pollTitle = pollWrapper.get("h1").text();
-      expect(pollTitle).to.equal("Poll");
+      const pollTitle = pollWrapper.get('h1').text();
+      expect(pollTitle).to.equal('Poll');
     });
 
     it('renders exactly two labelless options with the values 0', function () {
       const options = pollWrapper.findAll('.option');
       expect(options).to.have.length(2);
-
 
       const option1Percentage = options[0].get('.percentage');
       expect(option1Percentage.text()).to.equal('0% (0)');
@@ -83,8 +80,8 @@ describe('rendering', function () {
     });
 
     it('renders a poll with a default title', function () {
-      const pollTitle = pollWrapper.get("h1").text();
-      expect(pollTitle).to.equal("Poll");
+      const pollTitle = pollWrapper.get('h1').text();
+      expect(pollTitle).to.equal('Poll');
     });
 
     it('renders exactly three labelless options with the values 0', function () {
@@ -109,8 +106,8 @@ describe('rendering', function () {
     });
 
     it('renders a poll with the provided title', function () {
-      const pollTitle = pollWrapper.get("h1").text();
-      expect(pollTitle).to.equal("Title");
+      const pollTitle = pollWrapper.get('h1').text();
+      expect(pollTitle).to.equal('Title');
     });
 
     it('renders exactly three labeled options with the values 0', function () {
@@ -124,7 +121,7 @@ describe('rendering', function () {
       const option1Percentage = options[0].get('.percentage').text();
       expect(option1Percentage).to.equal('0% (0)');
 
-      const option2Percentage = options[1].get('.percentage').text()
+      const option2Percentage = options[1].get('.percentage').text();
       expect(option2Percentage).to.equal('0% (0)');
 
       const option3Percentage = options[2].get('.percentage').text();
@@ -139,8 +136,8 @@ describe('rendering', function () {
     });
 
     it('renders the default title', function () {
-      const pollTitle = pollWrapper.get("h1").text();
-      expect(pollTitle).to.equal("Poll");
+      const pollTitle = pollWrapper.get('h1').text();
+      expect(pollTitle).to.equal('Poll');
     });
 
     it('renders exactly three labeled options with the values 0', function () {
@@ -154,7 +151,7 @@ describe('rendering', function () {
       const option1Percentage = options[0].get('.percentage').text();
       expect(option1Percentage).to.equal('0% (0)');
 
-      const option2Percentage = options[1].get('.percentage').text()
+      const option2Percentage = options[1].get('.percentage').text();
       expect(option2Percentage).to.equal('0% (0)');
 
       const option3Percentage = options[2].get('.percentage').text();
@@ -170,8 +167,8 @@ describe('rendering', function () {
     });
 
     it('renders the new poll title', function () {
-      const pollTitle = pollWrapper.get("h1").text();
-      expect(pollTitle).to.equal("New Title");
+      const pollTitle = pollWrapper.get('h1').text();
+      expect(pollTitle).to.equal('New Title');
     });
   });
 
@@ -289,9 +286,9 @@ describe('rendering', function () {
 
     it("marks the winning option as 'winning'", function () {
       const options = pollWrapper.findAll('.option');
-      expect(options[0].classes()).to.contain('winning-option');
-      expect(options[1].classes()).to.not.contain('winning-option');
-      expect(options[2].classes()).to.not.contain('winning-option');
+      expect(options[0].classes()).to.contain('win-option');
+      expect(options[1].classes()).to.not.contain('win-option');
+      expect(options[2].classes()).to.not.contain('win-option');
     });
   });
 
