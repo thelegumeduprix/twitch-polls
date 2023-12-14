@@ -8,10 +8,14 @@ function filterValidUserVotes(pollState) {
 }
 
 export function getWinningOptions(pollState) {
+  // if poll is active, there are no winners
+  if (pollState.active) return [];
+
   const voteCountsPerOption = getVoteCountsPerOption(pollState);
 
   let winningOptions = [];
   let winningVoteCount = 0;
+
   Object.entries(voteCountsPerOption).forEach(([option, voteCount]) => {
     if (voteCount == winningVoteCount) {
       winningOptions.push(option);
@@ -22,6 +26,29 @@ export function getWinningOptions(pollState) {
   });
 
   return winningOptions;
+}
+
+export function getOptionStatus(pollState) {
+  const winningOptions = getWinningOptions(pollState);
+
+  // if there is only one winning option, return it as the only winner
+  if (winningOptions.length === 1) {
+    return {
+      [winningOptions[0]]: 'win',
+    };
+  }
+
+  // if there are multiple winners differentiate between draw and untiewin
+  const optionStatuses = {};
+  for (const optionNumber of winningOptions) {
+    if (pollState.untieMode && pollState.untieWinner === optionNumber) {
+      optionStatuses[optionNumber] = 'untiewin';
+    } else {
+      optionStatuses[optionNumber] = 'draw';
+    }
+  }
+
+  return optionStatuses;
 }
 
 export function getVoteCountsPerOption(pollState) {

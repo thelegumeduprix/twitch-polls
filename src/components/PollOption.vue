@@ -5,9 +5,7 @@
     :key="optionNumber"
   >
     <div>
-      <div class="option-number">
-        {{ optionNumber }}
-      </div>
+      <div class="option-number">{{ optionNumber }}</div>
       <span :contentEditable="true">{{ optionName }}</span
       >: <span class="percentage">{{ percentage }}% ({{ voteCount }})</span>
     </div>
@@ -34,30 +32,20 @@ export default {
     voteCount: Number,
     totalCount: Number,
     winningOptions: Array,
+    status: String, // 'win'|'draw'|'untiewin'
   },
   computed: {
     percentage() {
       return this.totalCount === 0 ? 0 : Math.round((this.voteCount / this.totalCount) * 100);
     },
-    /**
-     * @returns {'win'|'draw'|''} a text representation of the status of this option
-     */
-    optionStatus() {
-      if (this.winningOptions.includes(this.optionNumber)) {
-        if (this.winningOptions.length === 1) {
-          return 'win';
-        } else {
-          return 'draw';
-        }
-      }
-      return '';
-    },
     optionClasses() {
-      switch (this.optionStatus) {
+      switch (this.status) {
         case 'win':
           return 'win-option animate__animated animate__bounceIn';
         case 'draw':
           return 'draw-option animate__animated animate__shakeX';
+        case 'untiewin':
+          return 'win-option animate__animated animate__shakeX';
         default:
           return '';
       }
@@ -65,11 +53,13 @@ export default {
     optionBackground() {
       // the interesting custom properties should exist on :root (and thus the body)
       const style = getComputedStyle(document.body);
-      switch (this.optionStatus) {
+      switch (this.status) {
         case 'win':
           return style.getPropertyValue('--option-color-win');
         case 'draw':
           return style.getPropertyValue('--option-color-draw');
+        case 'untiewin':
+          return style.getPropertyValue('--option-color-win');
         default:
           return style.getPropertyValue('--option-color');
       }
