@@ -124,7 +124,7 @@ export default {
   right: 8px;
   width: 30px;
   height: 30px;
-  background-image: url('/trophy.svg');
+  background-image: var(--option-win-icon);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 28px 28px;
@@ -162,7 +162,7 @@ export default {
   background-color: var(--option-color-win);
   width: 36px;
   height: 30px;
-  background-image: url('/dice-6.svg');
+  background-image: var(--option-tiebreakwin-icon);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 28px 28px;

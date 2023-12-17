@@ -5,6 +5,8 @@
   --option-color: #823597;
   --option-color-win: #1ed581;
   --option-color-tie: orange;
+  --option-win-icon: url('/trophy.svg');
+  --option-tiebreakwin-icon: url('/dice-6.svg');
   --poll-corner-radius: 40px;
   --poll-padding: 32px;
   --body-text-font-family: Futura, system-ui, sans-serif;
