@@ -45,7 +45,7 @@ export default {
         case 'tie':
           return 'tie-option animate__animated animate__shakeX';
         case 'tiebreakwin':
-          return 'win-option animate__animated animate__shakeX';
+          return 'tiebreakwin-option animate__animated animate__bounceIn';
         default:
           return '';
       }
@@ -115,6 +115,19 @@ export default {
 
 .option.win-option .progress-bar-container .progress-bar {
   background-color: var(--option-color-win);
+  position: relative;
+}
+
+.option.win-option .progress-bar-container .progress-bar::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  background-image: url('/trophy.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 28px 28px;
 }
 
 .option.win-option .option-number {
@@ -125,11 +138,37 @@ export default {
   border-color: var(--option-color-tie);
 }
 
+.option.tie-option .progress-bar-container .progress-bar {
+  background-color: var(--option-color-tie);
+}
+
 .option.tie-option .option-number {
   background-color: var(--option-color-tie);
 }
 
-.option.tie-option .progress-bar-container .progress-bar {
-  background-color: var(--option-color-tie);
+.option.tiebreakwin-option .progress-bar-container {
+  border-color: var(--option-color-win);
+}
+
+.option.tiebreakwin-option .progress-bar-container .progress-bar {
+  background-color: var(--option-color-win);
+  position: relative;
+}
+
+.option.tiebreakwin-option .progress-bar-container .progress-bar::after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  background-color: var(--option-color-win);
+  width: 36px;
+  height: 30px;
+  background-image: url('/dice-6.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 28px 28px;
+}
+
+.option.tiebreakwin-option .option-number {
+  background-color: var(--option-color-win);
 }
 </style>
