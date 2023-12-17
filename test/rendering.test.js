@@ -240,15 +240,15 @@ describe('rendering', function () {
       expect(pollWrapper.get('.poll').isVisible()).to.be.true;
     });
 
-    it("marks every option as 'draw'", function () {
+    it("marks every option as 'tie'", function () {
       const options = pollWrapper.findAll('.option');
-      expect(options[0].classes()).to.contain('draw-option');
-      expect(options[1].classes()).to.contain('draw-option');
-      expect(options[2].classes()).to.contain('draw-option');
+      expect(options[0].classes()).to.contain('tie-option');
+      expect(options[1].classes()).to.contain('tie-option');
+      expect(options[2].classes()).to.contain('tie-option');
     });
   });
 
-  describe('when receiving a poll stop command while a drawed poll of 3 was active', function () {
+  describe('when receiving a poll stop command while a tied poll of 3 was active', function () {
     beforeAll(function () {
       Object.assign(store, structuredClone(INITIAL_POLL_STATE));
       handleMessage(USER_1, '!poll 3');
@@ -262,11 +262,11 @@ describe('rendering', function () {
       expect(pollWrapper.get('.poll').isVisible()).to.be.true;
     });
 
-    it("marks every option as 'draw'", function () {
+    it("marks every option as 'tie'", function () {
       const options = pollWrapper.findAll('.option');
-      expect(options[0].classes()).to.contain('draw-option');
-      expect(options[1].classes()).to.contain('draw-option');
-      expect(options[2].classes()).to.contain('draw-option');
+      expect(options[0].classes()).to.contain('tie-option');
+      expect(options[1].classes()).to.contain('tie-option');
+      expect(options[2].classes()).to.contain('tie-option');
     });
   });
 

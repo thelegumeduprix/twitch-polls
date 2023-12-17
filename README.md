@@ -97,7 +97,7 @@ This will change the poll title of the currently active poll to "New Poll Title"
 
 `!pollstop`
 
-This will stop the currently active poll in its current state and highlights the winning option. If several options have a draw they will be highlighted together.
+This will stop the currently active poll in its current state and highlights the winning option. If several options are tied they will be highlighted together.
 
 <img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 10 43" src="https://user-images.githubusercontent.com/94025590/181994884-358fb293-2daa-4406-93f9-efd0bb93ab3a.png">
 <img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 11 21" src="https://user-images.githubusercontent.com/94025590/181994887-30a27146-d739-4b77-8be2-e4b52dc968ee.png">

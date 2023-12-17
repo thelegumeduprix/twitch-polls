@@ -17,8 +17,8 @@ const DEBUG_POLL_STATE = {
   options: { 1: 'Pizza', 2: 'Jam', 3: 'Coffee' },
   userVotes: { user1: '1', user2: '3', user3: '3' },
   position: 'tl',
-  untieMode: false,
-  untieWinner: null,
+  tiebreakMode: false,
+  tiebreakWinner: null,
 };
 
 const INITIAL_STATE = {
@@ -28,8 +28,8 @@ const INITIAL_STATE = {
   options: {},
   userVotes: {},
   position: 'tl',
-  untieMode: false,
-  untieWinner: null,
+  tiebreakMode: false,
+  tiebreakWinner: null,
 };
 
 export default reactive({
@@ -46,24 +46,24 @@ export default reactive({
     this.title = 'Poll';
     this.options = {};
     this.userVotes = {};
-    this.untieMode = false;
-    this.untieWinner = null;
+    this.tiebreakMode = false;
+    this.tiebreakWinner = null;
   },
   resetPoll() {
     this.active = true;
-    this.untieMode = false;
-    this.untieWinner = null;
+    this.tiebreakMode = false;
+    this.tiebreakWinner = null;
     this.userVotes = {};
   },
-  untiePoll() {
-    if (this.untieMode || this.active) return;
+  tiebreakPoll() {
+    if (this.tiebreakMode || this.active) return;
 
     const winningOptions = getWinningOptions(this);
     const randomIndex = Math.floor(Math.random() * winningOptions.length);
     const randomOption = winningOptions[randomIndex];
 
-    this.untieMode = true;
-    this.untieWinner = randomOption;
+    this.tiebreakMode = true;
+    this.tiebreakWinner = randomOption;
   },
   updatePollTitle(message) {
     const options = message.match(POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN);
@@ -97,8 +97,8 @@ export default reactive({
     this.active = true;
     this.visible = true;
     this.title = 'Poll';
-    this.untieMode = false;
-    this.untieWinner = null;
+    this.tiebreakMode = false;
+    this.tiebreakWinner = null;
 
     if (POLL_SIMPLE_DETECTION_PATTERN.test(message)) {
       for (let index = 1; index <= 2; index++) {

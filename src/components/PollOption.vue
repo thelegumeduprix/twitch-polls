@@ -32,7 +32,7 @@ export default {
     voteCount: Number,
     totalCount: Number,
     winningOptions: Array,
-    status: String, // 'win'|'draw'|'untiewin'
+    status: String, // 'win'|'tie'|'tiebreakwin'
   },
   computed: {
     percentage() {
@@ -42,9 +42,9 @@ export default {
       switch (this.status) {
         case 'win':
           return 'win-option animate__animated animate__bounceIn';
-        case 'draw':
-          return 'draw-option animate__animated animate__shakeX';
-        case 'untiewin':
+        case 'tie':
+          return 'tie-option animate__animated animate__shakeX';
+        case 'tiebreakwin':
           return 'win-option animate__animated animate__shakeX';
         default:
           return '';
@@ -56,9 +56,9 @@ export default {
       switch (this.status) {
         case 'win':
           return style.getPropertyValue('--option-color-win');
-        case 'draw':
-          return style.getPropertyValue('--option-color-draw');
-        case 'untiewin':
+        case 'tie':
+          return style.getPropertyValue('--option-color-tie');
+        case 'tiebreakwin':
           return style.getPropertyValue('--option-color-win');
         default:
           return style.getPropertyValue('--option-color');
@@ -121,15 +121,15 @@ export default {
   background-color: var(--option-color-win);
 }
 
-.option.draw-option .progress-bar-container {
-  border-color: var(--option-color-draw);
+.option.tie-option .progress-bar-container {
+  border-color: var(--option-color-tie);
 }
 
-.option.draw-option .option-number {
-  background-color: var(--option-color-draw);
+.option.tie-option .option-number {
+  background-color: var(--option-color-tie);
 }
 
-.option.draw-option .progress-bar-container .progress-bar {
-  background-color: var(--option-color-draw);
+.option.tie-option .progress-bar-container .progress-bar {
+  background-color: var(--option-color-tie);
 }
 </style>

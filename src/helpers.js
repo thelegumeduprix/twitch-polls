@@ -38,13 +38,13 @@ export function getOptionStatus(pollState) {
     };
   }
 
-  // if there are multiple winners differentiate between draw and untiewin
+  // if there are multiple winners differentiate between tie and tiebreakwin
   const optionStatuses = {};
   for (const optionNumber of winningOptions) {
-    if (pollState.untieMode && pollState.untieWinner === optionNumber) {
-      optionStatuses[optionNumber] = 'untiewin';
+    if (pollState.tiebreakMode && pollState.tiebreakWinner === optionNumber) {
+      optionStatuses[optionNumber] = 'tiebreakwin';
     } else {
-      optionStatuses[optionNumber] = 'draw';
+      optionStatuses[optionNumber] = 'tie';
     }
   }
 
