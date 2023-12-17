@@ -13,7 +13,7 @@ export const isPollResume = (message) => /^!pollresume/g.test(message);
 export const isPollEnd = (message) => /^!pollend/g.test(message);
 export const isPollStop = (message) => /^!pollstop/g.test(message);
 export const isPollReset = (message) => /^!pollreset/g.test(message);
-export const isPollUntie = (message) => /^!polluntie/g.test(message);
+export const isPollUntie = (message) => /^!polluntie|^!pollrandom|^!polltiebreak|^!pollresolve/g.test(message);
 export const isPollTitleChange = (message) => POLL_TITLE_DETECTION_PATTERN.test(message);
 export const isPositionChange = (message) => POLL_POSITION_DETECTION_PATTERN.test(message);
 export const isPrivilegedUser = (tags) => Boolean(tags.badges?.broadcaster || tags.mod);
