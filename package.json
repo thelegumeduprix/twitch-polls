@@ -6,7 +6,7 @@
   "main": "index.html",
   "type": "module",
   "engines": {
-    "node": "16.x"
+    "node": ">=18"
   },
   "scripts": {
     "start": "vite",
