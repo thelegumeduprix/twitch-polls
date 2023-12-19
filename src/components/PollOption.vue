@@ -11,9 +11,20 @@
     </div>
     <div class="progress-bar-container">
       <div
-        class="progress-bar"
+        class="progress-bar option-background"
         :style="{ width: `${percentage}%` }"
-      ></div>
+      >
+        <div
+          v-if="status === 'win'"
+          class="progress-bar-trophy-icon"
+        />
+      </div>
+      <div
+        v-if="status === 'tiebreakwin'"
+        class="progress-bar-extension"
+      >
+        <div class="progress-bar-dice-icon" />
+      </div>
     </div>
   </div>
 </template>
@@ -80,95 +91,74 @@ export default {
 </script>
 
 <style>
+.option {
+  --option-status-color: var(--option-color);
+}
+.option.win-option {
+  --option-status-color: var(--option-color-win);
+}
+.option.tie-option {
+  --option-status-color: var(--option-color-tie);
+}
+.option.tiebreakwin-option {
+  --option-status-color: var(--option-color-win);
+}
+
 .option + .option {
   margin-top: var(--size-m);
 }
 
 .option-number {
-  background-color: var(--option-color);
-  color: v-bind(contrastingTextColor);
-  padding: 0.2em 0.5em;
-  font-weight: bold;
-  border-radius: var(--poll-option-corner-radius);
   display: inline-block;
   margin-inline-end: var(--size-s);
+  padding: 0.2em 0.5em;
+  background-color: var(--option-status-color);
+  color: v-bind(contrastingTextColor);
+  font-weight: bold;
+  border-radius: var(--poll-option-corner-radius);
 }
 
 .progress-bar-container {
+  display: flex;
   width: 100%;
-  border: var(--size-xs) solid var(--option-color);
-  border-radius: var(--poll-option-corner-radius);
   margin-top: var(--size-s);
+  border: var(--size-xs) solid var(--option-status-color);
+  border-radius: var(--poll-option-corner-radius);
   overflow: hidden;
 }
 
 .progress-bar {
+  position: relative;
   transition: width 600ms ease-in-out;
   width: 0;
   height: 30px;
-  background-color: var(--option-color);
+  background-color: var(--option-status-color);
 }
 
-.option.win-option .progress-bar-container {
-  border-color: var(--option-color-win);
+.progress-bar-extension {
+  background-color: var(--option-status-color);
 }
 
-.option.win-option .progress-bar-container .progress-bar {
-  background-color: var(--option-color-win);
-  position: relative;
-}
-
-.option.win-option .progress-bar-container .progress-bar::after {
-  content: '';
+.progress-bar-trophy-icon {
   position: absolute;
   right: 8px;
   width: 30px;
   height: 30px;
-  background-image: var(--option-win-icon);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 28px 28px;
+  mask-image: var(--option-win-icon);
+  background-color: v-bind(contrastingTextColor);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 36px 36px;
 }
 
-.option.win-option .option-number {
-  background-color: var(--option-color-win);
-}
-
-.option.tie-option .progress-bar-container {
-  border-color: var(--option-color-tie);
-}
-
-.option.tie-option .progress-bar-container .progress-bar {
-  background-color: var(--option-color-tie);
-}
-
-.option.tie-option .option-number {
-  background-color: var(--option-color-tie);
-}
-
-.option.tiebreakwin-option .progress-bar-container {
-  border-color: var(--option-color-win);
-}
-
-.option.tiebreakwin-option .progress-bar-container .progress-bar {
-  background-color: var(--option-color-win);
-  position: relative;
-}
-
-.option.tiebreakwin-option .progress-bar-container .progress-bar::after {
-  content: '';
-  position: absolute;
-  left: 100%;
-  background-color: var(--option-color-win);
-  width: 36px;
+.progress-bar-dice-icon {
+  margin-inline: 16px 8px;
+  width: 30px;
   height: 30px;
-  background-image: var(--option-tiebreakwin-icon);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 28px 28px;
-}
-
-.option.tiebreakwin-option .option-number {
-  background-color: var(--option-color-win);
+  mask-image: var(--option-tiebreakwin-icon);
+  background-color: v-bind(contrastingTextColor);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 36px 36px;
 }
 </style>
