@@ -39,6 +39,8 @@ export default reactive({
   },
   resumePoll() {
     this.active = true;
+    this.tiebreakMode = false;
+    this.tiebreakWinner = null;
   },
   endPoll() {
     this.active = false;
