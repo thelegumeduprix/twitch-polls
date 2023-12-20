@@ -11,7 +11,7 @@
     </div>
     <div class="progress-bar-container">
       <div
-        class="progress-bar option-background"
+        class="progress-bar"
         :style="{ width: `${percentage}%` }"
       >
         <div
