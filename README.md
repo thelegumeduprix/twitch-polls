@@ -108,6 +108,12 @@ This will stop the currently active poll in its current state and highlights the
 
 This will resume the currently stopped, but still visible poll.
 
+### Breaking a Tied Poll
+
+`!polltiebreak`
+
+This will pick a random winner out of the tied options in the poll.
+
 ### Ending a Poll
 
 `!pollend`
@@ -148,3 +154,7 @@ Make sure you follow the instructions under [Integration into OBS](#integration-
 2. Within the codebase folder run `npm install` to install all necessary dev packages.
 3. With `npm run build` the code is built into the `build` folder, which can then be served by any web server or service that serves static files.
 4. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) on how to user that URL.
+
+## Attributions
+
+Icons provided by https://github.com/tabler/tabler-icons
