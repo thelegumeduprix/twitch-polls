@@ -281,7 +281,6 @@ describe('!pollresume', function () {
         title: 'Poll',
         options: { 1: ' ', 2: ' ' },
         userVotes: {},
-        tiebreakMode: true,
         tiebreakWinner: '1',
       });
     });
@@ -294,7 +293,6 @@ describe('!pollresume', function () {
         title: 'Poll',
         options: { 1: ' ', 2: ' ' },
         userVotes: {},
-        tiebreakMode: false,
         tiebreakWinner: null,
       });
     });
@@ -552,14 +550,8 @@ describe('tiebreakPoll()', function () {
           user1: '1',
           user2: '2',
         },
-        tiebreakMode: false,
         tiebreakWinner: null,
       });
-    });
-
-    it('sets the tiebreak mode to true', function () {
-      store.tiebreakPoll();
-      expect(store.tiebreakMode).toBe(true);
     });
 
     it('sets the tiebreak winner to a random option', function () {
@@ -579,14 +571,8 @@ describe('tiebreakPoll()', function () {
           user1: '1',
           user2: '2',
         },
-        tiebreakMode: false,
         tiebreakWinner: null,
       });
-    });
-
-    it('does not set the tiebreak mode to true', function () {
-      store.tiebreakPoll();
-      expect(store.tiebreakMode).toBe(false);
     });
 
     it('leaves tiebreak winner null', function () {

@@ -17,7 +17,6 @@ const DEBUG_POLL_STATE = {
   options: { 1: 'half-life 3', 2: 'silk song', 3: 'witcher 4', 4: 'paralives', 5: 'mario kart 9' },
   userVotes: { user1: '1', user2: '3', user3: '3' },
   position: 'tl',
-  tiebreakMode: false,
   tiebreakWinner: null,
 };
 
@@ -28,7 +27,6 @@ const INITIAL_STATE = {
   options: {},
   userVotes: {},
   position: 'tl',
-  tiebreakMode: false,
   tiebreakWinner: null,
 };
 
@@ -39,7 +37,6 @@ export default reactive({
   },
   resumePoll() {
     this.active = true;
-    this.tiebreakMode = false;
     this.tiebreakWinner = null;
   },
   endPoll() {
@@ -48,23 +45,20 @@ export default reactive({
     this.title = 'Poll';
     this.options = {};
     this.userVotes = {};
-    this.tiebreakMode = false;
     this.tiebreakWinner = null;
   },
   resetPoll() {
     this.active = true;
-    this.tiebreakMode = false;
     this.tiebreakWinner = null;
     this.userVotes = {};
   },
   tiebreakPoll() {
-    if (this.tiebreakMode || this.active) return;
+    if (this.tiebreakWinner || this.active) return;
 
     const winningOptions = getWinningOptions(this);
     const randomIndex = Math.floor(Math.random() * winningOptions.length);
     const randomOption = winningOptions[randomIndex];
 
-    this.tiebreakMode = true;
     this.tiebreakWinner = randomOption;
   },
   updatePollTitle(message) {
@@ -99,7 +93,6 @@ export default reactive({
     this.active = true;
     this.visible = true;
     this.title = 'Poll';
-    this.tiebreakMode = false;
     this.tiebreakWinner = null;
 
     if (POLL_SIMPLE_DETECTION_PATTERN.test(message)) {
