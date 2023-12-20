@@ -13,7 +13,7 @@ import {
 const DEBUG_POLL_STATE = {
   active: true,
   visible: true,
-  title: 'which game should play next?',
+  title: 'which game should we play next?',
   options: { 1: 'half-life 3', 2: 'silk song', 3: 'witcher 4', 4: 'paralives', 5: 'mario kart 9' },
   userVotes: { user1: '1', user2: '3', user3: '3' },
   position: 'tl',
