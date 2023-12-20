@@ -54,7 +54,7 @@ export default {
         case 'win':
           return 'win-option animate__animated animate__bounceIn';
         case 'tie':
-          return 'tie-option animate__animated animate__shakeX';
+          return 'tie-option animate__animated animate__headShake';
         case 'tiebreakwin':
           return 'tiebreakwin-option animate__animated animate__bounceIn';
         default:
@@ -124,7 +124,6 @@ export default {
   margin-top: var(--size-s);
   border: var(--size-xs) solid var(--option-status-color);
   border-radius: var(--poll-option-corner-radius);
-  overflow: hidden;
 }
 
 .progress-bar {

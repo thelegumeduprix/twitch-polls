@@ -34,6 +34,8 @@ import { POSITION_MAP } from '../setup';
 import store from '../store';
 import PollOption from './PollOption.vue';
 
+import 'animate.css';
+
 export default {
   components: {
     PollOption,
