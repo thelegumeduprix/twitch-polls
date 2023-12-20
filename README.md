@@ -157,4 +157,4 @@ Make sure you follow the instructions under [Integration into OBS](#integration-
 
 ## Attributions
 
-Icons provided by https://github.com/tabler/tabler-icons
+Icons provided by https://github.com/tabler/tabler-icons (under MIT license, Copyright (c) 2020-2023 Paweł Kuna).
