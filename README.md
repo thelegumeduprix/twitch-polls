@@ -97,7 +97,7 @@ This will change the poll title of the currently active poll to "New Poll Title"
 
 `!pollstop`
 
-This will stop the currently active poll in its current state and highlights the winning option. If several options have a draw they will be highlighted together.
+This will stop the currently active poll in its current state and highlights the winning option. If several options are tied they will be highlighted together.
 
 <img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 10 43" src="https://user-images.githubusercontent.com/94025590/181994884-358fb293-2daa-4406-93f9-efd0bb93ab3a.png">
 <img width="1920" alt="Bildschirmfoto 2022-07-30 um 22 11 21" src="https://user-images.githubusercontent.com/94025590/181994887-30a27146-d739-4b77-8be2-e4b52dc968ee.png">
@@ -107,6 +107,12 @@ This will stop the currently active poll in its current state and highlights the
 `!pollresume`
 
 This will resume the currently stopped, but still visible poll.
+
+### Breaking a Tied Poll
+
+`!polltiebreak`
+
+This will pick a random winner out of the tied options in the poll.
 
 ### Ending a Poll
 
@@ -148,3 +154,7 @@ Make sure you follow the instructions under [Integration into OBS](#integration-
 2. Within the codebase folder run `npm install` to install all necessary dev packages.
 3. With `npm run build` the code is built into the `build` folder, which can then be served by any web server or service that serves static files.
 4. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) on how to user that URL.
+
+## Attributions
+
+Icons provided by https://github.com/tabler/tabler-icons (under MIT license, Copyright (c) 2020-2023 Paweł Kuna).

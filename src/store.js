@@ -1,5 +1,6 @@
 import { reactive } from 'vue';
 
+import { getWinningOptions } from './helpers.js';
 import {
   POLL_NUMBER_DETECTION_PATTERN,
   POLL_QUOTED_PARAMETER_DETECTION_PATTERN,
@@ -12,10 +13,11 @@ import {
 const DEBUG_POLL_STATE = {
   active: true,
   visible: true,
-  title: 'Debug Mode Poll',
-  options: { 1: 'Pizza', 2: 'Jam', 3: 'Coffee' },
+  title: 'which game should we play next?',
+  options: { 1: 'half-life 3', 2: 'silk song', 3: 'witcher 4', 4: 'paralives', 5: 'mario kart 9' },
   userVotes: { user1: '1', user2: '3', user3: '3' },
   position: 'tl',
+  tiebreakWinner: null,
 };
 
 const INITIAL_STATE = {
@@ -25,6 +27,7 @@ const INITIAL_STATE = {
   options: {},
   userVotes: {},
   position: 'tl',
+  tiebreakWinner: null,
 };
 
 export default reactive({
@@ -34,6 +37,7 @@ export default reactive({
   },
   resumePoll() {
     this.active = true;
+    this.tiebreakWinner = null;
   },
   endPoll() {
     this.active = false;
@@ -41,10 +45,21 @@ export default reactive({
     this.title = 'Poll';
     this.options = {};
     this.userVotes = {};
+    this.tiebreakWinner = null;
   },
   resetPoll() {
     this.active = true;
+    this.tiebreakWinner = null;
     this.userVotes = {};
+  },
+  tiebreakPoll() {
+    if (this.tiebreakWinner || this.active) return;
+
+    const winningOptions = getWinningOptions(this);
+    const randomIndex = Math.floor(Math.random() * winningOptions.length);
+    const randomOption = winningOptions[randomIndex];
+
+    this.tiebreakWinner = randomOption;
   },
   updatePollTitle(message) {
     const options = message.match(POLL_QUOTED_PARAMETER_EXTRACTION_PATTERN);
@@ -78,6 +93,7 @@ export default reactive({
     this.active = true;
     this.visible = true;
     this.title = 'Poll';
+    this.tiebreakWinner = null;
 
     if (POLL_SIMPLE_DETECTION_PATTERN.test(message)) {
       for (let index = 1; index <= 2; index++) {

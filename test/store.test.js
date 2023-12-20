@@ -272,6 +272,31 @@ describe('!pollresume', function () {
       userVotes: {},
     });
   });
+
+  describe('when the poll is not active and a tiebreak happened before', function () {
+    beforeEach(function () {
+      Object.assign(store, {
+        visible: true,
+        active: false,
+        title: 'Poll',
+        options: { 1: ' ', 2: ' ' },
+        userVotes: {},
+        tiebreakWinner: '1',
+      });
+    });
+
+    it('sets the poll state to active and resets the tiebreak mode and winner', function () {
+      store.resumePoll();
+      expect(store).to.deep.include({
+        active: true,
+        visible: true,
+        title: 'Poll',
+        options: { 1: ' ', 2: ' ' },
+        userVotes: {},
+        tiebreakWinner: null,
+      });
+    });
+  });
 });
 
 describe('!pollend', function () {
@@ -344,7 +369,6 @@ describe('!pollend', function () {
     });
   });
 });
-
 
 describe('handlePollTitleChange()', function () {
   beforeEach(function () {
@@ -511,5 +535,49 @@ describe('store.castVote()', function () {
     store.visible = false;
     store.castVote('1', 'user2');
     expect(store.userVotes).toEqual({ user1: '1', user2: '2' });
+  });
+});
+
+describe('tiebreakPoll()', function () {
+  describe('when the poll is visible but not active', function () {
+    beforeEach(function () {
+      Object.assign(store, {
+        visible: true,
+        active: false,
+        title: 'Poll',
+        options: { 1: 'A', 2: 'B' },
+        userVotes: {
+          user1: '1',
+          user2: '2',
+        },
+        tiebreakWinner: null,
+      });
+    });
+
+    it('sets the tiebreak winner to a random option', function () {
+      store.tiebreakPoll();
+      expect(['1', '2']).toContain(store.tiebreakWinner);
+    });
+  });
+
+  describe('when the poll is visible and active', function () {
+    beforeEach(function () {
+      Object.assign(store, {
+        visible: true,
+        active: true,
+        title: 'Poll',
+        options: { 1: 'A', 2: 'B' },
+        userVotes: {
+          user1: '1',
+          user2: '2',
+        },
+        tiebreakWinner: null,
+      });
+    });
+
+    it('leaves tiebreak winner null', function () {
+      store.tiebreakPoll();
+      expect(store.tiebreakWinner).toBe(null);
+    });
   });
 });

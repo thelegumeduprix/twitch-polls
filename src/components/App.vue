@@ -21,6 +21,7 @@
         :voteCount="voteCountsPerOption[optionNumber]"
         :totalCount="totalVoteCount"
         :winningOptions="winningOptions"
+        :status="statuses[optionNumber]"
         :key="optionNumber"
       />
     </div>
@@ -28,10 +29,12 @@
 </template>
 
 <script>
-import { getTotalVoteCount, getVoteCountsPerOption, getWinningOptions } from '../helpers';
+import { getOptionStatus, getTotalVoteCount, getVoteCountsPerOption, getWinningOptions } from '../helpers';
 import { POSITION_MAP } from '../setup';
 import store from '../store';
 import PollOption from './PollOption.vue';
+
+import 'animate.css';
 
 export default {
   components: {
@@ -48,10 +51,13 @@ export default {
       return getVoteCountsPerOption(store);
     },
     winningOptions() {
-      return store.active ? [] : getWinningOptions(store);
+      return getWinningOptions(store);
     },
     positionClassName() {
       return POSITION_MAP[store.position];
+    },
+    statuses() {
+      return getOptionStatus(store);
     },
   },
 };

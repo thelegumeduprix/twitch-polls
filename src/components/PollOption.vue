@@ -5,9 +5,7 @@
     :key="optionNumber"
   >
     <div>
-      <div class="option-number">
-        {{ optionNumber }}
-      </div>
+      <div class="option-number">{{ optionNumber }}</div>
       <span :contentEditable="true">{{ optionName }}</span
       >: <span class="percentage">{{ percentage }}% ({{ voteCount }})</span>
     </div>
@@ -15,7 +13,18 @@
       <div
         class="progress-bar"
         :style="{ width: `${percentage}%` }"
-      ></div>
+      >
+        <div
+          v-if="status === 'win'"
+          class="progress-bar-trophy-icon"
+        />
+      </div>
+      <div
+        v-if="status === 'tiebreakwin'"
+        class="progress-bar-extension"
+      >
+        <div class="progress-bar-dice-icon" />
+      </div>
     </div>
   </div>
 </template>
@@ -34,30 +43,20 @@ export default {
     voteCount: Number,
     totalCount: Number,
     winningOptions: Array,
+    status: String, // 'win'|'tie'|'tiebreakwin'
   },
   computed: {
     percentage() {
       return this.totalCount === 0 ? 0 : Math.round((this.voteCount / this.totalCount) * 100);
     },
-    /**
-     * @returns {'win'|'draw'|''} a text representation of the status of this option
-     */
-    optionStatus() {
-      if (this.winningOptions.includes(this.optionNumber)) {
-        if (this.winningOptions.length === 1) {
-          return 'win';
-        } else {
-          return 'draw';
-        }
-      }
-      return '';
-    },
     optionClasses() {
-      switch (this.optionStatus) {
+      switch (this.status) {
         case 'win':
           return 'win-option animate__animated animate__bounceIn';
-        case 'draw':
-          return 'draw-option animate__animated animate__shakeX';
+        case 'tie':
+          return 'tie-option animate__animated animate__headShake';
+        case 'tiebreakwin':
+          return 'tiebreakwin-option animate__animated animate__bounceIn';
         default:
           return '';
       }
@@ -65,11 +64,13 @@ export default {
     optionBackground() {
       // the interesting custom properties should exist on :root (and thus the body)
       const style = getComputedStyle(document.body);
-      switch (this.optionStatus) {
+      switch (this.status) {
         case 'win':
           return style.getPropertyValue('--option-color-win');
-        case 'draw':
-          return style.getPropertyValue('--option-color-draw');
+        case 'tie':
+          return style.getPropertyValue('--option-color-tie');
+        case 'tiebreakwin':
+          return style.getPropertyValue('--option-color-win');
         default:
           return style.getPropertyValue('--option-color');
       }
@@ -90,56 +91,73 @@ export default {
 </script>
 
 <style>
+.option {
+  --option-status-color: var(--option-color);
+}
+.option.win-option {
+  --option-status-color: var(--option-color-win);
+}
+.option.tie-option {
+  --option-status-color: var(--option-color-tie);
+}
+.option.tiebreakwin-option {
+  --option-status-color: var(--option-color-win);
+}
+
 .option + .option {
   margin-top: var(--size-m);
 }
 
 .option-number {
-  background-color: var(--option-color);
-  color: v-bind(contrastingTextColor);
-  padding: 0.2em 0.5em;
-  font-weight: bold;
-  border-radius: var(--poll-option-corner-radius);
   display: inline-block;
   margin-inline-end: var(--size-s);
+  padding: 0.2em 0.5em;
+  background-color: var(--option-status-color);
+  color: v-bind(contrastingTextColor);
+  font-weight: bold;
+  border-radius: var(--poll-option-corner-radius);
 }
 
 .progress-bar-container {
+  display: flex;
   width: 100%;
-  border: var(--size-xs) solid var(--option-color);
-  border-radius: var(--poll-option-corner-radius);
   margin-top: var(--size-s);
-  overflow: hidden;
+  border: var(--size-xs) solid var(--option-status-color);
+  border-radius: var(--poll-option-corner-radius);
 }
 
 .progress-bar {
+  position: relative;
   transition: width 600ms ease-in-out;
   width: 0;
   height: 30px;
-  background-color: var(--option-color);
+  background-color: var(--option-status-color);
 }
 
-.option.win-option .progress-bar-container {
-  border-color: var(--option-color-win);
+.progress-bar-extension {
+  background-color: var(--option-status-color);
 }
 
-.option.win-option .progress-bar-container .progress-bar {
-  background-color: var(--option-color-win);
+.progress-bar-trophy-icon {
+  position: absolute;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  mask-image: var(--option-win-icon);
+  background-color: v-bind(contrastingTextColor);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 36px 36px;
 }
 
-.option.win-option .option-number {
-  background-color: var(--option-color-win);
-}
-
-.option.draw-option .progress-bar-container {
-  border-color: var(--option-color-draw);
-}
-
-.option.draw-option .option-number {
-  background-color: var(--option-color-draw);
-}
-
-.option.draw-option .progress-bar-container .progress-bar {
-  background-color: var(--option-color-draw);
+.progress-bar-dice-icon {
+  margin-inline: 16px 8px;
+  width: 30px;
+  height: 30px;
+  mask-image: var(--option-tiebreakwin-icon);
+  background-color: v-bind(contrastingTextColor);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 36px 36px;
 }
 </style>

@@ -5,6 +5,7 @@ import {
   isPollStart,
   isPollStop,
   isPollTitleChange,
+  isPollTiebreak,
   isPositionChange,
   isPrivilegedUser,
   isValidVote,
@@ -39,6 +40,10 @@ export function handleMessage(tags, message) {
 
   if (isPollReset(message) && isPrivilegedUser(tags)) {
     store.resetPoll();
+  }
+
+  if (isPollTiebreak(message) && isPrivilegedUser(tags)) {
+    store.tiebreakPoll();
   }
 
   // anyone enters a poll vote while a poll is active
