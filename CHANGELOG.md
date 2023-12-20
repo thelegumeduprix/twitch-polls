@@ -15,6 +15,7 @@
 - Added a tiebreak command to determine a random winnner out of a tie: `!polltiebreak`. The tiebreak winner displays its bar a bit longer and shows a dice icon to signify that it was picked randomly.
 - The winner option now displays a trophy icon on top of the bar.
 - Added two new theme variables for both the trophy and dice icon.
+- Re-added shaking and bouncing animations for different final poll states. The tie animation is a more subtle shake now.
 
 ### Internal Changes
 
