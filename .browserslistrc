@@ -1,0 +1,3 @@
+defaults
+# to be on the safe side if the embedded Chromium in OBS is not up-to-date
+last 100 Chrome versions and last 2 years # two years of Chrome releases
