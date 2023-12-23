@@ -87,6 +87,16 @@ export default {
       }
     },
   },
+  methods: {
+    iconColor(iconCssVariable) {
+      const style = getComputedStyle(document.body);
+      if (style.getPropertyValue(iconCssVariable)) {
+        return this.contrastingTextColor;
+      } else {
+        return 'none';
+      }
+    },
+  }
 };
 </script>
 
@@ -144,7 +154,7 @@ export default {
   width: 30px;
   height: 30px;
   mask-image: var(--option-win-icon);
-  background-color: v-bind(contrastingTextColor);
+  background-color: v-bind("iconColor('--option-win-icon')");
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: 36px 36px;
@@ -155,7 +165,7 @@ export default {
   width: 30px;
   height: 30px;
   mask-image: var(--option-tiebreakwin-icon);
-  background-color: v-bind(contrastingTextColor);
+  background-color: v-bind("iconColor('--option-tiebreakwin-icon')");
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: 36px 36px;
