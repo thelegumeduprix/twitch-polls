@@ -8,6 +8,20 @@
 
 <!-- ### Internal Changes 🏗️ -->
 
+## [Version 2.1.1] - 2023-12-23
+
+### Bugfixes 🐛
+
+- Fixed a bug where the icons would not be correctly displayed in Chromium Embedded Framework in OBS due to missing vendor prefixes
+- Fixed a bug where disabling the icons in the `theme.css` would still render black or white background where the icons would have been.
+- Downgraded the required node version back to 16 so that the project can be build on glitch.com again without errors.
+
+### Internal Changes 🏗️
+
+- Added autoprefixer with a browsers list targeting the last 2 years of Chrome releases.
+- Downgraded a few related packages to conform with node 16.
+- Changed license from GPL to MIT.
+
 ## [Version 2.1.0] - 2023-12-20
 
 ### Features ✨
