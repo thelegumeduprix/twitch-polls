@@ -14,8 +14,8 @@
         class="progress-bar"
         :style="{ width: `${percentage}%` }"
       >
-        <div
-          v-if="status === 'win'"
+        <Trophy
+          v-if="status === 'win' && useIcons"
           class="progress-bar-trophy-icon"
         />
       </div>
@@ -23,7 +23,14 @@
         v-if="status === 'tiebreakwin'"
         class="progress-bar-extension"
       >
-        <div class="progress-bar-dice-icon" />
+        <Dice
+          v-if="useIcons"
+          class="progress-bar-dice-icon"
+        />
+        <svg
+          v-else
+          class="progress-bar-dice-icon"
+        />
       </div>
     </div>
   </div>
@@ -33,6 +40,9 @@
 import { colord, extend } from 'colord';
 import a11yPlugin from 'colord/plugins/a11y';
 import namesPlugin from 'colord/plugins/names';
+import config from '@/config';
+import Dice from '@resources/dice.svg?component';
+import Trophy from '@resources/trophy.svg?component';
 
 extend([a11yPlugin, namesPlugin]);
 
@@ -44,6 +54,10 @@ export default {
     totalCount: Number,
     winningOptions: Array,
     status: String, // 'win'|'tie'|'tiebreakwin'
+  },
+  components: {
+    Dice,
+    Trophy,
   },
   computed: {
     percentage() {
@@ -86,15 +100,8 @@ export default {
         return '#000';
       }
     },
-  },
-  methods: {
-    iconColor(iconCssVariable) {
-      const style = getComputedStyle(document.body);
-      if (style.getPropertyValue(iconCssVariable)) {
-        return this.contrastingTextColor;
-      } else {
-        return 'none';
-      }
+    useIcons() {
+      return config.useIcons;
     },
   },
 };
@@ -149,27 +156,18 @@ export default {
     background-color: var(--option-status-color);
   }
 
+  svg {
+    width: 30px;
+    height: 30px;
+    color: v-bind('contrastingTextColor');
+    display: block;
+  }
   .progress-bar-trophy-icon {
     position: absolute;
     right: 8px;
-    width: 30px;
-    height: 30px;
-    mask-image: var(--option-win-icon);
-    background-color: v-bind("iconColor('--option-win-icon')");
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: 36px 36px;
   }
-
   .progress-bar-dice-icon {
     margin-inline: 16px 8px;
-    width: 30px;
-    height: 30px;
-    mask-image: var(--option-tiebreakwin-icon);
-    background-color: v-bind("iconColor('--option-tiebreakwin-icon')");
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: 36px 36px;
   }
 }
 </style>
