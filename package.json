@@ -47,6 +47,7 @@
     "jsdom": "^22.1.0",
     "prettier": "^3.1.1",
     "vite": "^4.0.0",
+    "vite-svg-loader": "^5.1.0",
     "vitest": "^0.34.6"
   }
 }

@@ -34,8 +34,6 @@ import { POSITION_MAP } from '../setup';
 import store from '../store';
 import PollOption from './PollOption.vue';
 
-import 'animate.css';
-
 export default {
   components: {
     PollOption,
@@ -64,41 +62,43 @@ export default {
 </script>
 
 <style>
-.container {
-  display: flex;
-  height: 100%;
-  padding: 90px;
-}
+@layer poll-defaults {
+  .container {
+    display: flex;
+    height: 100%;
+    padding: 90px;
+  }
 
-.container.top-left {
-  align-items: flex-start;
-}
+  .container.top-left {
+    align-items: flex-start;
+  }
 
-.container.top-right {
-  justify-content: right;
-  align-items: flex-start;
-}
+  .container.top-right {
+    justify-content: right;
+    align-items: flex-start;
+  }
 
-.container.bottom-right {
-  justify-content: right;
-  align-items: flex-end;
-}
+  .container.bottom-right {
+    justify-content: right;
+    align-items: flex-end;
+  }
 
-.container.bottom-left {
-  align-items: flex-end;
-}
+  .container.bottom-left {
+    align-items: flex-end;
+  }
 
-.poll {
-  min-width: 25%;
-  max-width: 600px;
-  padding: var(--poll-padding);
-  border-radius: var(--poll-corner-radius);
-  background-color: var(--poll-background-color);
-}
+  .poll {
+    min-width: 25%;
+    max-width: 600px;
+    padding: var(--poll-padding);
+    border-radius: var(--poll-corner-radius);
+    background-color: var(--poll-background-color);
+  }
 
-.poll-title {
-  font-family: var(--poll-title-font-family);
-  font-size: var(--poll-title-font-size);
-  margin-bottom: var(--size-xl);
+  .poll-title {
+    font-family: var(--poll-title-font-family);
+    font-size: var(--poll-title-font-size);
+    margin-bottom: var(--size-xl);
+  }
 }
 </style>
