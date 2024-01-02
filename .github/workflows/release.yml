@@ -1,11 +1,11 @@
 name: Release a new version
 
 # triggered manually
-on: 
+on:
   workflow_dispatch:
     inputs:
       releaseVersion:
-        description: 'Release Version (e.g. 4.2)'     
+        description: 'Release Version (e.g. 4.2)'
         required: true
 
 jobs:
