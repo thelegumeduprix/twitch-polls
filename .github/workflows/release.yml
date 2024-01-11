@@ -49,3 +49,4 @@ jobs:
           commit_message: Add generated files for release ${{ github.event.inputs.releaseVersion }}
           branch: release/${{ github.event.inputs.releaseVersion }}
           create_branch: true
+          tagging_message: '${{ github.event.inputs.releaseVersion }}'
