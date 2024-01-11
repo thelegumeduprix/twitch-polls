@@ -1,12 +1,18 @@
 # Changelog
 
+<!--
+### Features ✨
+### Bugfixes 🐛
+### Internal Changes 🏗️
+-->
+
 ## [Unreleased]
 
-<!-- ### Features ✨ -->
+## [Version 2.1.2] - 2024-01-11
 
-<!-- ### Bugfixes 🐛 -->
+### Internal Changes 🏗️
 
-<!-- ### Internal Changes 🏗️ -->
+- Testing the release process
 
 ## [Version 2.1.1] - 2023-12-23
 

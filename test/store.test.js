@@ -182,7 +182,7 @@ describe('starting a poll with !poll', function () {
       userVotes: {},
     };
     beforeEach(function () {
-      Object.assign(store, structuredClone(initialState));
+      Object.assign(store, initialState);
     });
 
     it('does not alter the current poll state', function () {
@@ -200,7 +200,7 @@ describe('starting a poll with !poll', function () {
       userVotes: {},
     };
     beforeEach(function () {
-      Object.assign(store, structuredClone(initialState));
+      Object.assign(store, initialState);
     });
 
     it('does not alter the current poll state', function () {
@@ -218,7 +218,7 @@ describe('starting a poll with !poll', function () {
       userVotes: {},
     };
     beforeEach(function () {
-      Object.assign(store, structuredClone(initialState));
+      Object.assign(store, initialState);
     });
 
     it('does not alter the current poll state', function () {

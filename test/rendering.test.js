@@ -25,6 +25,15 @@ const INITIAL_POLL_STATE = {
   userVotes: {},
 };
 
+//FIXME: this is a specific polyfill until we don't need Node 16 support (without native structuredClone) anymore
+window.structuredClone = window.structuredClone || function (o) {
+  return {
+    ...o,
+    options: { ...o.options },
+    userVotes: { ...o.userVotes },
+  };
+};
+
 const pollWrapper = mount(App, {
   attachTo: 'body', // 'attachTo' is necessary for isVisible() to work properly
 });

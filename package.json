@@ -1,7 +1,7 @@
 {
   "name": "twitch-polls",
   "private": true,
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A Twitch polling tool bot and poll visualization overlay for custom polls.",
   "main": "index.html",
   "type": "module",
@@ -27,7 +27,7 @@
     "bot"
   ],
   "author": "@thelegumeduprix",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "dependencies": {
     "animate.css": "^4.1.1",
     "colord": "^2.9.3",
