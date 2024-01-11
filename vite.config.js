@@ -1,24 +1,26 @@
-import { fileURLToPath, URL } from 'node:url'
+import { fileURLToPath, URL } from 'node:url';
 
-import vue from '@vitejs/plugin-vue'
-import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue';
+import svgLoader from 'vite-svg-loader';
+import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), svgLoader({ svgo: false /* will otherwise drop the 'viewBox', mis-aligning the icons */ })],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+      '@resources': fileURLToPath(new URL('./resources', import.meta.url)),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
   },
   build: {
-    outDir: 'build'
+    outDir: 'build',
   },
   server: {
     port: 3000,
     strictPort: true,
     hmr: {
-      port: 3001
-    }
-  }
-})
+      port: 3001,
+    },
+  },
+});

@@ -1,0 +1,47 @@
+/* layer order (later layers win) */
+@layer libs, poll-defaults; /* and then the theme.css styles in the default layer */
+
+@import url('animate.css') layer(libs);
+
+@layer poll-defaults {
+  /*^Default theme values */
+  :root {
+    --poll-background-color: rgba(0, 0, 0, 0.99);
+    --poll-text-color: #fff;
+    --option-color: #823597;
+    --option-color-win: #1ed581;
+    --option-color-tie: orange;
+    --poll-corner-radius: 40px;
+    --poll-padding: 32px;
+    --body-text-font-family: Futura, system-ui, sans-serif;
+    --body-text-font-size: 24px;
+    --poll-title-font-family: Futura, system-ui, sans-serif;
+    --poll-title-font-size: 32px;
+    --poll-option-corner-radius: 8px;
+
+    --size-xxs: 0.125rem; /* = 2px */
+    --size-xs: 0.25rem; /* = 4px */
+    --size-s: 0.5rem; /* = 8px */
+    --size-m: 1rem; /* = 16px */
+    --size-l: 1.5rem; /* = 24px */
+    --size-xl: 2rem; /* = 32 px */
+    --size-xxl: 2.5rem; /* = 40 px */
+  }
+
+  /* Very basic HTML resets */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--body-text-font-family);
+    color: var(--poll-text-color);
+  }
+
+  body {
+    height: 100vh;
+    font-size: var(--body-text-font-size);
+  }
+}
