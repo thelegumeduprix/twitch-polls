@@ -8,6 +8,20 @@ If you just want to get started with a easy-to-use version you can use the glitc
 
 As an alternative you can create an account on glitch.com and "remix" the project. This allows you to customize the look of the tool with the proivded `theme.css` file, and you can also manually update the version number if you want to get the latest version.
 
+## Themeability
+
+You can customize some aspects of the poll design by altering the CSS values in the `theme.css` file.
+
+## Configuration
+
+You can edit the `useIcons` to be false if you prefer not have icons shown for winners and tie-break winners:
+
+```
+window.config = {
+  useIcons: true, // true or false, default: true
+}
+```
+
 ## Commands
 
 The chat commands to start and edit polls are only available to the broadcaster.
@@ -79,10 +93,6 @@ When a poll is active any number that is put into chat counts as a vote by that 
 - A number is only counted when the message starts with that number (optionally followed by a space and arbitrary other text).
 - A user can change their vote to another number by inputting another valid number
 - With inputting 0 the user can withdraw their vote
-
-## Themeability
-
-You can customize some aspects of the poll design by altering the CSS values in the `theme.css` file.
 
 ## Integration into OBS
 
