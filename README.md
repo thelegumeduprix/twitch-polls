@@ -1,67 +1,12 @@
-# 🚧 WIP Twitch Polling Tool 🚧 WIP
+# Twitch Polling Tool
 
 A Twitch polling tool bot and poll visualization overlay for custom polls.
 
-## Themeability
+## How to Use
 
-You can customize some aspects of the poll design by altering the CSS values at the top of `theme.css`
+If you just want to get started with a easy-to-use version you can use the glitch.com project [twitch-polls](https://twitch-polls.glitch.me). You can integrate the tool into your [streaming software directly](#integration-into-obs) and get automatic updates from time to time.
 
-## Getting Started
-
-The easiest way to get started is via [Glitch](glitch.com).
-If you don't mind dealing with running a web server, check out the [Advanced Setups](#advanced-setups) section to learn more.
-
-### Remix on Glitch
-
-If you already have a Glitch account you can just remix the project.
-
-1. Go to [glitch.com](https://glitch.com) and log in with your account.
-2. Visit the [Twitch Polling Tool project](https://glitch.com/edit/#!/twitch-polls) on Glitch.
-3. Hit the _Remix_ button to remix (=duplicate) the project for yourself.
-4. Once the project is ready, you can click the _Share_ button and copy the URL you can find under _Live site_
-5. Take this new live URL (it should have a random 3-word string in it) and use it in your streaming software (OBS etc.) as the URL for a browser source.
-6. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) below on how to use that URL.
-
-### Where do I start with changes to the code?
-
-**Be aware** that anything inside the `build` folder is automatically generated code that shouldn't be edited.
-
-- `style.css`: If you want to make some design changes the top level `style.css` file is the right place.
-- `src/main.js`: If you want to dive into the code and make some changes to the logic of the polls `src/main.js` is the starting point.
-
-## Integration into OBS
-
-This guide describes OBS, but it should work almost identical in other streaming software.
-
-Take the URL under which the tool is running. In case you remixed on Glitch, the URL should be something similar to `https://rando-url-soup.glitch.me`. Here's how you integrate it into OBS.
-
-Add a browser source and as the URL you input:
-
-```
-https://rando-url-soup.glitch.me?channel=XYZ
-```
-
-Substitute `XYZ` with your channel name.
-
-Make sure you adjust the values for width and height to:
-
-```
-width: 1920
-height: 1080
-```
-
-If you don't want the poll to be in the default position (top left) you can append another parameter to the URL to change this. The following URL puts the overlay into the bottom right:
-
-```
-https://rando-url-soup.glitch.me?channel=XYZ&position=br
-```
-
-Replace the `br` with any corner you like. These are the supported options:
-
-- `tl`: top left (default)
-- `tr`: top right
-- `br`: bottom right
-- `bl`: bottom left
+As an alternative you can create an account on glitch.com and "remix" the project. This allows you to customize the look of the tool with the proivded `theme.css` file, and you can also manually update the version number if you want to get the latest version.
 
 ## Commands
 
@@ -114,6 +59,12 @@ This will resume the currently stopped, but still visible poll.
 
 This will pick a random winner out of the tied options in the poll.
 
+### Resetting the Votes
+
+`!pollreset`
+
+This will leave the currently running poll active and visible while resetting all the votes.
+
 ### Ending a Poll
 
 `!pollend`
@@ -129,31 +80,69 @@ When a poll is active any number that is put into chat counts as a vote by that 
 - A user can change their vote to another number by inputting another valid number
 - With inputting 0 the user can withdraw their vote
 
-## Advanced Setups
+## Themeability
 
-### Running Local Development Server
+You can customize some aspects of the poll design by altering the CSS values in the `theme.css` file.
 
-1. Fetch the codebase with git.
-2. Within the codebase folder run `npm install` to install all necessary dev packages.
-3. With `npm start` you open up a dev server under `http://localhost:3000`.
-4. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) on how to user that URL.
+## Integration into OBS
 
-### Running On a Web Server
+This guide describes OBS, but it should work almost identical in other streaming software.
 
-#### Downloading Pre-built Code
+Take the URL under which the tool is running. In case you remixed on Glitch, the URL should be something similar to `https://rando-url-soup.glitch.me`. Here's how you integrate it into OBS.
 
-You can download the pre-built code from the GitHub repository directly. The `build` folder should contain all the files that need to be served from a web server.
+Add a browser source and as the URL you input:
 
-Go to _Releases_ and pick the latest version and download the source code under _Assets_. Take the source code from the `build` folder and serve it from a server.
+```
+https://rando-url-soup.glitch.me?channel=XYZ
+```
 
-Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) on how to user that URL.
+Substitute `XYZ` with your channel name.
 
-#### Building the Code Yourself
+Make sure you adjust the values for width and height to:
 
-1. Fetch the codebase with git.
-2. Within the codebase folder run `npm install` to install all necessary dev packages.
-3. With `npm run build` the code is built into the `build` folder, which can then be served by any web server or service that serves static files.
-4. Make sure you follow the instructions under [Integration into OBS](#integration-into-obs) on how to user that URL.
+```
+width: 1920
+height: 1080
+```
+
+If you don't want the poll to be in the default position (top left) you can append another parameter to the URL to change this. The following URL puts the overlay into the bottom right:
+
+```
+https://rando-url-soup.glitch.me?channel=XYZ&position=br
+```
+
+Replace the `br` with any corner you like. These are the supported options:
+
+- `tl`: top left (default)
+- `tr`: top right
+- `br`: bottom right
+- `bl`: bottom left
+
+## Creating a New Release
+
+As follows a step-by-step of how our own relase process. It's a combination of GitHub workflows to create a tagged build artefact on a git release branch that can then be imported via a CDN service in the glitch project's basic HTML file.
+
+### GitHub Part
+
+1. Create and push new commit with the following things:
+
+- Make sure the changelog is up-to-date: Everything that was "unreleased" previously should now live under a new version header under appropriate sub headers (features, bugfixes, internal changes).
+- Make sure the same version number is updated in the package.json and also run `npm install` once so that it is reflected into the package-lock.json.
+
+2. Trigger the GitHub worflow "Release a new version":
+
+- Pick the `main` branch with the latest commit
+- Enter the previously chosen version number and hit "Run workflow"
+
+3. Build a GitHub Release
+
+- Base it on the new version tag (that was created by the workflow)
+- Copy the latest changelog Entries into the release notes as-is (check previous releases if unsure)
+
+### Glitch Part
+
+1. Update the version number in the HTML file in the [twitch polls glitch project](https://glitch.com/edit/#!/twitch-polls) where the file is imported. For example: https://cdn.jsdelivr.net/gh/thelegumeduprix/twitch-polls@2.1.2/release/poll.js
+2. Re-Import the GitHub repository into the [twitch polls detailed glitch project](https://glitch.com/edit/#!/twitch-polls-detailed).
 
 ## Attributions
 
