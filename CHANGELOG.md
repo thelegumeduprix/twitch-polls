@@ -8,6 +8,13 @@
 
 ## [Unreleased]
 
+## [Version 2.1.3] - 2024-01-12
+
+### Internal Changes 🏗️
+
+- Use inlining strategy for SVG icon loading
+- Restructure CSS and the themeability with @layers
+
 ## [Version 2.1.2] - 2024-01-11
 
 ### Internal Changes 🏗️
