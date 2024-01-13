@@ -6,7 +6,7 @@ A Twitch polling tool bot and poll visualization overlay for custom polls.
 
 If you just want to get started with a easy-to-use version you can use the glitch.com project [twitch-polls](https://twitch-polls.glitch.me). You can integrate the tool into your [streaming software directly](#integration-into-obs) and get automatic updates from time to time.
 
-As an alternative you can create an account on glitch.com and "remix" the project. This allows you to customize the look of the tool with the proivded `theme.css` file, and you can also manually update the version number if you want to get the latest version.
+As an alternative you can create an account on [glitch.com](https://glitch.com) and "remix" [the project on Glitch](https://glitch.com/edit/#!/twitch-polls). This allows you to customize the look of the tool with the provided `theme.css` file. You can manually update the version number if you want to get the latest version.
 
 ## Themeability
 
@@ -14,7 +14,7 @@ You can customize some aspects of the poll design by altering the CSS values in 
 
 ## Configuration
 
-You can edit the `useIcons` to be false if you prefer not have icons shown for winners and tie-break winners:
+You can edit the `useIcons` to be `false` in the `index.html` file if you prefer not have icons shown for winners and tie-break winners:
 
 ```
 window.config = {
@@ -130,7 +130,7 @@ Replace the `br` with any corner you like. These are the supported options:
 
 ## Creating a New Release
 
-As follows a step-by-step of how our own relase process. It's a combination of GitHub workflows to create a tagged build artefact on a git release branch that can then be imported via a CDN service in the glitch project's basic HTML file.
+This is a step-by-step of our own release process. It's a combination of GitHub workflows to create a tagged build artifact on a Git release branch that can then be imported via a CDN service in the Glitch project's basic HTML file.
 
 ### GitHub Part
 
@@ -139,7 +139,7 @@ As follows a step-by-step of how our own relase process. It's a combination of G
 - Make sure the changelog is up-to-date: Everything that was "unreleased" previously should now live under a new version header under appropriate sub headers (features, bugfixes, internal changes).
 - Make sure the same version number is updated in the package.json and also run `npm install` once so that it is reflected into the package-lock.json.
 
-2. Trigger the GitHub worflow "Release a new version":
+2. Trigger the GitHub workflow "Release a new version":
 
 - Pick the `main` branch with the latest commit
 - Enter the previously chosen version number and hit "Run workflow"
@@ -147,7 +147,7 @@ As follows a step-by-step of how our own relase process. It's a combination of G
 3. Build a GitHub Release
 
 - Base it on the new version tag (that was created by the workflow)
-- Copy the latest changelog Entries into the release notes as-is (check previous releases if unsure)
+- Copy the latest changelog entries into the release notes as-is (check previous releases if unsure)
 
 ### Glitch Part
 
