@@ -26,7 +26,7 @@
   --poll-title-font-family: Futura, system-ui, sans-serif;
   /* text size for the poll title */
   --poll-title-font-size: 32px;
-  /* how round are the corners of the each poll option to vote for */
+  /* how round are the corners of each poll option to vote for */
   --poll-option-corner-radius: 8px;
 }
 
