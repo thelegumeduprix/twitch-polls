@@ -8,6 +8,8 @@
 
 ## [Unreleased]
 
+## [Version 2.2.0] - 2024-01-23
+
 ### Features ✨
 
 - Styling documentation in `theme.css`
