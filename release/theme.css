@@ -1,0 +1,74 @@
+/* Theme customization 
+ Change colors and other styles for your polls.
+ The next block are the actual styles and below that you can find some pointers and instructions for changing them.
+ */
+
+:root {
+  /* background color for the whole poll box */
+  --poll-background-color: rgba(0, 0, 0, 0.99);
+  /* color for most of the text */
+  --poll-text-color: #fff;
+  /* fill color for ordinary poll options */
+  --option-color: #823597;
+  /* fill color for the winning poll option */
+  --option-color-win: #1ed581;
+  /* fill color for the poll options that are in a tie/draw */
+  --option-color-tie: orange;
+  /* how round are the corners of the whole poll box */
+  --poll-corner-radius: 40px;
+  /* how much space is around the poll options */
+  --poll-padding: 32px;
+  /* text font for most of the text */
+  --body-text-font-family: Futura, system-ui, sans-serif;
+  /* text size for most of the text */
+  --body-text-font-size: 24px;
+  /* text font for the poll title */
+  --poll-title-font-family: Futura, system-ui, sans-serif;
+  /* text size for the poll title */
+  --poll-title-font-size: 32px;
+  /* how round are the corners of each poll option to vote for */
+  --poll-option-corner-radius: 8px;
+}
+
+/* Glitch Preview
+For trying out style changes in Glitch, you can go to "Preview" (below this editor) and
+then "Open preview pane". This gives you an (initially empty) preview on the right. 
+Add "?debug" at the end of the URL of the preview window. The full URL could 
+e.g. look like this: https://typhoon-axiomatic-glove.glitch.me/?debug
+This will give you a demo poll, so you can see (most of) the styles in action. 
+Whenever you change styles above, the preview will update automatically.
+*/
+
+/* How do the style rules work anyway?
+The style rules all follow the same format:
+ --some-variable: someValue;
+"someValue" is the value you can actually change, keeping the variable name and also
+the semicolon ';' at the end.
+As you might have guessed everything between /* and *​/ is just comments and ignored by the computer.
+*/
+
+/* Colors
+For picking your own colors you can e.g. use https://www.w3schools.com/colors/colors_picker.asp 
+You can start with the current color value (paste it into "Enter a Color" there) and
+change it - or pick an entirely different color.
+You can browse around https://www.w3schools.com/Css/css_colors_hsl.asp to learn even more about colors.
+*/
+
+/* Size & Border Radius
+Font sizes are in pixels (px). Same goes for border radius, which makes the corners of a box
+less or more round.
+Just experiment with larger or smaller values. Be sure to keep the "px" directly after
+the number value without a space, i.e. "50px" instead of "50 px".
+*/
+
+/* Font Families
+Font families are the way to set the text font.
+Have a look at https://www.w3schools.com/cssref/pr_font_font-family.php to learn more about possible values.
+*/
+
+/*
+If you liked playing around with the styles, maybe you want to learn more about CSS (Cascading Style Sheets), 
+which is what we just used for styling the polls and what is used to style every web page.
+This is a good place to start your deep dive:
+https://en.khanacademy.org/computing/computer-programming/html-css
+*/
